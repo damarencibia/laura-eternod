@@ -145,6 +145,19 @@ nav a:hover {
   margin-bottom: 60px;
 }
 
+/* Texto extendido debajo del bloque imagen + texto */
+.profile-text-extended {
+  margin-top: 50px; /* Espacio claro respecto al bloque superior */
+  /* max-width: 720px; Ancho de lectura cómodo */
+}
+
+/* Ajuste de párrafos */
+.profile-text-extended p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 22px;
+}
+
 .column-container {
   display: grid;
   grid-template-columns: 40% 60%;
@@ -185,7 +198,7 @@ nav a:hover {
   margin-bottom: 20px;
 }
 
-/* GRIDS — servicios y proyectos */
+/* GRIDS — SERVICIOS */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -211,6 +224,103 @@ nav a:hover {
 .project p {
   font-size: 0.95rem;
 }
+
+/* ============================= */
+/* PROYECTOS — índice editorial  */
+/* Grid principal que contiene las tarjetas de proyectos */
+.projects-grid {
+  display: grid;
+  /* Distribuye los proyectos en columnas responsivas */
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  /* Espacio entre tarjetas */
+  gap: 40px;
+  /* Separación superior respecto al título */
+  margin-top: 60px;
+}
+
+/* Tarjeta completa clicable */
+.project-card {
+  position: relative;
+  /* Permite posicionar el overlay encima de la imagen */
+  display: block;
+  /* Hace que el <a> se comporte como bloque */
+  text-decoration: none;
+  /* Elimina subrayado del enlace */
+  color: inherit;
+  /* Hereda el color del texto del sitio */
+  overflow: hidden;
+  /* Evita que la imagen escalada se salga del contenedor */
+  /* border-top: 1px solid var(--border-orange); */
+  /* Línea editorial superior (ritmo visual) */
+}
+
+/* Imagen de portada del proyecto */
+.project-card img {
+  width: 100%;
+  /* Ocupa todo el ancho del contenedor */
+  height: 320px;
+  /* Altura fija tipo portada editorial */
+  object-fit: cover;
+  /* Recorta la imagen sin deformarla */
+  filter: grayscale(100%) contrast(1.1);
+  /* Tratamiento sobrio inicial */
+  transition:
+    transform 0.6s ease,
+    filter 0.6s ease;
+  /* Transiciones suaves al hover */
+}
+
+/* Capa superpuesta con texto */
+.project-overlay {
+  position: absolute;
+  /* Se posiciona encima de la imagen */
+  inset: 0;
+  /* Ocupa todo el contenedor */
+  display: flex;
+  /* Layout flexible */
+  flex-direction: column;
+  /* Elementos en columna */
+  justify-content: flex-end;
+  /* Texto alineado abajo como portada */
+  padding: 30px;
+  /* Espaciado interior */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+  /* Degradado para legibilidad del texto */
+}
+
+/* Texto pequeño que indica tipo de contenido */
+.project-category {
+  font-size: 0.7rem;
+  /* Tamaño editorial discreto */
+  text-transform: uppercase;
+  /* Mayúsculas tipo archivo */
+  letter-spacing: 2px;
+  /* Aire entre letras */
+  color: var(--light-gray);
+  /* Gris secundario */
+  margin-bottom: 6px;
+  /* Separación del título */
+}
+
+/* Título principal del proyecto */
+.project-overlay h4 {
+  font-size: 1.4rem;
+  /* Título claro pero no dominante */
+  font-weight: 400;
+  /* Peso elegante */
+  color: var(--off-white);
+  /* Alto contraste sobre la imagen */
+}
+
+/* Interacción al pasar el cursor */
+.project-card:hover img {
+  transform: scale(1.05);
+  /* Zoom muy sutil */
+  filter: grayscale(0%) contrast(1.05);
+  /* Devuelve el color gradualmente */
+}
+/* FIN - PROYECTOS — índice editorial  */
+/* ============================= */
 
 /* CONTENEDOR GENERAL */
 .carousel {
@@ -288,6 +398,28 @@ nav a:hover {
   background: rgba(0, 0, 0, 0.75);
 }
 
+
+/* INDICADORES DEL CARRUSEL */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* Guión base */
+.indicator {
+  width: 28px;
+  height: 2px;
+  background: var(--border-gray);
+  transition: background 0.3s ease;
+}
+
+/* Guión activo */
+.indicator.active {
+  background: var(--border-orange);
+}
+
 /* FOOTER — archivo */
 .footer {
   text-align: center;
@@ -312,5 +444,19 @@ nav a:hover {
 
   .carousel-track img {
     height: 200px;
+  }
+
+  .project-card img {
+    filter: none;
+    transform: none;
+  }
+
+  /* Reduce altura de portada en pantallas pequeñas */
+  .project-card img {
+    height: 240px;
+  }
+
+  .profile-text-extended {
+    margin-top: 10px;
   }
 }
