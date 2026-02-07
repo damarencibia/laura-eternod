@@ -1,0 +1,316 @@
+/* PALETA (negros y grises) */
+:root {
+  --black: #0e0e0e;
+  --dark-gray: #1a1a1a;
+  --mid-gray: #2e2e2e;
+  --light-gray: #9a9a9a;
+  --off-white: #f2f2f2;
+  --border-gray: #2a2a2a;
+  --border-orange: #cf7e13;
+  --accent: #cfcfcf;
+}
+
+/* RESET Y BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--black);
+  color: var(--off-white);
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+p {
+  color: var(--light-gray);
+}
+
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* HEADER — minimal editorial */
+.header {
+  background: rgba(14, 14, 14, 0.9);
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--border-gray);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo {
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: var(--off-white);
+}
+
+nav a {
+  margin-left: 20px;
+  text-decoration: none;
+  color: var(--light-gray);
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+nav a:hover {
+  color: var(--off-white);
+}
+
+/* HERO — portada revista */
+.hero {
+  height: 100vh;
+  background: url("assets/hero.jpg") center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.55),
+    rgba(0, 0, 0, 0.85)
+  );
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  max-width: 720px;
+  padding: 20px;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 400;
+  color: var(--off-white);
+}
+
+.hero h2 {
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 15px 0 25px;
+  color: var(--light-gray);
+}
+
+.hero p {
+  font-size: 1rem;
+  color: var(--accent);
+}
+
+/* SECCIONES */
+.section {
+  padding: 120px 0;
+}
+
+.section.light {
+  background: var(--dark-gray);
+}
+
+/* PERFIL — editorial serio */
+.profile-layout {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.profile-header {
+  margin-bottom: 60px;
+}
+
+.column-container {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  gap: 60px;
+  text-align: left;
+}
+
+.categoria-imagen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.categoria-imagen img {
+  width: 100%;
+  filter: grayscale(100%) contrast(1.1);
+}
+
+/* TIPOGRAFÍA EDITORIAL */
+.headline {
+  font-size: 2.6rem;
+  margin-bottom: 0.5rem;
+  color: var(--off-white);
+}
+
+.tagline {
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--light-gray);
+  margin-bottom: 2rem;
+}
+
+.copy-text p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+/* GRIDS — servicios y proyectos */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.card,
+.project {
+  background: transparent;
+  padding: 30px 0;
+  border-top: 1px solid var(--border-orange);
+}
+
+.card h4,
+.project h4 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: var(--off-white);
+}
+
+.card p,
+.project p {
+  font-size: 0.95rem;
+}
+
+/* CONTENEDOR GENERAL */
+.carousel {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* PISTA QUE SE DESLIZA */
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  /* 👇 AQUÍ ESTÁ LA MAGIA */
+  scroll-snap-type: x mandatory;
+
+  scrollbar-width: none;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track img {
+  min-width: 100%;
+  height: 180px;
+  object-fit: cover;
+
+  /* 👇 fuerza el “enganche” */
+  scroll-snap-align: start;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  /* 👇 magia */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Aparecen SOLO cuando el cursor está sobre el carrusel */
+.carousel:hover .carousel-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Posición de botones */
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+/* Hover sutil */
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* FOOTER — archivo */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.7rem;
+  background: var(--dark-gray);
+  color: var(--light-gray);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .column-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .carousel-track img {
+    height: 200px;
+  }
+}
