@@ -6,7 +6,7 @@
   --light-gray: #9a9a9a;
   --off-white: #f2f2f2;
   --border-gray: #2a2a2a;
-  --border-orange: #cf7e13;
+  --border-orange: #783719;
   --accent: #cfcfcf;
 }
 
@@ -225,6 +225,217 @@ nav a:hover {
   font-size: 0.95rem;
 }
 
+/* --- SECCIÓN SERVICIOS: CONTENEDOR DE ENCABEZADO --- */
+
+.services-header .headline {
+  margin-bottom: 10px; /* Espacio bajo el título principal "Especialidades" */
+}
+
+.services-header .tagline {
+  color: var(
+    --border-orange
+  ); /* Usa el tono sepia de tu paleta para resaltar */
+  font-weight: 500; /* Peso medio para elegancia editorial */
+  margin-bottom: 30px; /* Separación con el párrafo introductorio */
+  text-transform: uppercase; /* Mayúsculas para estilo de etiqueta de archivo */
+  letter-spacing: 2px; /* Aire entre letras para mayor legibilidad */
+}
+
+.services-intro {
+  max-width: 600px; /* Limita el ancho para que las líneas no sean demasiado largas */
+  margin: 0 auto; /* Centra el bloque de texto horizontalmente */
+}
+
+.services-intro p {
+  font-size: 1.1rem; /* Tamaño ligeramente mayor al texto base */
+  line-height: 1.8; /* Espaciado vertical generoso para lectura cómoda */
+  color: var(--light-gray); /* Gris suave para no competir con los títulos */
+  font-style: italic; /* Estilo itálico para diferenciar la intro del contenido */
+}
+
+/* --- ESTRUCTURA DE LA LÍNEA DE TIEMPO (TIMELINE) --- */
+
+.services-timeline {
+  position: relative; /* Necesario para posicionar la línea y los puntos dentro */
+  max-width: 1000px; /* Ancho máximo del contenedor de servicios */
+  margin: 0 auto; /* Centrado en la página */
+  padding: 60px 0; /* Espacio arriba y abajo del timeline */
+}
+
+/* La línea vertical central decorativa */
+.services-timeline::before {
+  content: ""; /* Elemento vacío para crear la forma visual */
+  position: absolute; /* Se posiciona respecto al contenedor padre */
+  left: 50%; /* Se ubica exactamente a la mitad horizontal */
+  top: 0; /* Comienza desde el inicio del contenedor */
+  bottom: 0; /* Se extiende hasta el final del contenedor */
+  width: 1px; /* Grosor fino de estilo editorial */
+  background: var(--border-gray); /* Color gris oscuro sutil */
+  transform: translateX(-50%); /* Ajuste fino para centrado perfecto */
+}
+
+/* Fila individual de cada servicio */
+.service-item {
+  display: flex; /* Activa flexbox para alinear texto e imagen */
+  align-items: center; /* Centra verticalmente el texto con la imagen */
+  justify-content: space-between; /* Empuja el texto a un lado y la imagen al otro */
+  margin-bottom: 120px; /* Espacio amplio entre servicios */
+  position: relative; /* Referencia para el punto sepia absoluto */
+}
+
+/* Clase para invertir el orden (Zig-Zag) en pantallas grandes */
+.service-item.item-reverse {
+  flex-direction: row-reverse; /* Cambia el orden: imagen izquierda, texto derecha */
+}
+
+/* Columnas internas (Texto y Multimedia) */
+.service-col {
+  width: 42%; /* Ocupa menos de la mitad para no tocar la línea central */
+}
+
+/* Alineación de texto: por defecto a la derecha (lado izquierdo de la línea) */
+.service-text {
+  text-align: right;
+}
+
+/* Alineación de texto para los items invertidos (lado derecho de la línea) */
+.item-reverse .service-text {
+  text-align: left;
+}
+
+/* --- EL PUNTO SEPIA (INDICADOR VISUAL) --- */
+
+.service-point {
+  position: absolute; /* Se coloca libremente sobre la línea */
+  left: 50%; /* Se ancla al centro horizontal */
+  width: 14px; /* Diámetro del punto */
+  height: 14px; /* Altura del punto */
+  background-color: var(--border-orange); /* Color sepia corporativo */
+  border-radius: 50%; /* Hace que el cuadrado sea un círculo perfecto */
+  transform: translateX(-50%); /* Centrado exacto sobre la línea vertical */
+  z-index: 5; /* Se asegura de estar por encima de la línea */
+  border: 4px solid var(--border-orange); /* Crea un "hueco" visual alrededor del punto */
+}
+
+/* --- CARRUSEL Y BORDES REDONDEADOS --- */
+
+.service-media .carousel {
+  border-radius: 5px; /* Redondeado de esquinas del contenedor */
+  overflow: hidden; /* Corta las imágenes que se salen al deslizarse */
+  position: relative; /* Base para los botones de navegación */
+}
+
+.service-media .carousel-track img {
+  height: 300px; /* Altura fija para mantener consistencia visual */
+  width: 100%; /* Ocupa todo el ancho disponible de su columna */
+  object-fit: cover; /* Ajusta la imagen sin deformarla (recorta excesos) */
+  border-radius: 5px; /* Doble refuerzo de redondeado en la imagen */
+  filter: grayscale(100%); /* Efecto inicial en blanco y negro */
+  transition: all 0.5s ease; /* Transición suave para color y posibles escalas */
+}
+
+/* Interacción: recupera el color al pasar el cursor sobre la fila */
+.service-item:hover .carousel-track img {
+  filter: grayscale(0%);
+}
+
+/* CONTENEDOR GENERAL */
+.carousel {
+  position: relative;
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* PISTA QUE SE DESLIZA */
+.carousel-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+
+  /* 👇 AQUÍ ESTÁ LA MAGIA */
+  scroll-snap-type: x mandatory;
+
+  scrollbar-width: none;
+}
+
+.carousel-track img {
+  min-width: 100%;
+  height: 180px;
+  object-fit: cover;
+
+  /* 👇 fuerza el “enganche” */
+  scroll-snap-align: start;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* BOTONES DE NAVEGACIÓN */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+  /* 👇 magia */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/* Aparecen SOLO cuando el cursor está sobre el carrusel */
+.carousel:hover .carousel-btn {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Posición de botones */
+.carousel-btn.prev {
+  left: 10px;
+}
+
+.carousel-btn.next {
+  right: 10px;
+}
+
+/* Hover sutil */
+.carousel-btn:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+/* INDICADORES DEL CARRUSEL */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+/* Guión base */
+.indicator {
+  width: 28px;
+  height: 2px;
+  background: var(--border-gray);
+  transition: background 0.3s ease;
+}
+
+/* Guión activo */
+.indicator.active {
+  background: var(--border-orange);
+}
+
 /* ============================= */
 /* PROYECTOS — índice editorial  */
 /* Grid principal que contiene las tarjetas de proyectos */
@@ -322,104 +533,6 @@ nav a:hover {
 /* FIN - PROYECTOS — índice editorial  */
 /* ============================= */
 
-/* CONTENEDOR GENERAL */
-.carousel {
-  position: relative;
-  width: 100%;
-  margin-top: 20px;
-}
-
-/* PISTA QUE SE DESLIZA */
-.carousel-track {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-
-  /* 👇 AQUÍ ESTÁ LA MAGIA */
-  scroll-snap-type: x mandatory;
-
-  scrollbar-width: none;
-}
-
-.carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-.carousel-track img {
-  min-width: 100%;
-  height: 180px;
-  object-fit: cover;
-
-  /* 👇 fuerza el “enganche” */
-  scroll-snap-align: start;
-}
-
-/* BOTONES DE NAVEGACIÓN */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  /* 👇 magia */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-/* Aparecen SOLO cuando el cursor está sobre el carrusel */
-.carousel:hover .carousel-btn {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Posición de botones */
-.carousel-btn.prev {
-  left: 10px;
-}
-
-.carousel-btn.next {
-  right: 10px;
-}
-
-/* Hover sutil */
-.carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.75);
-}
-
-
-/* INDICADORES DEL CARRUSEL */
-.carousel-indicators {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-/* Guión base */
-.indicator {
-  width: 28px;
-  height: 2px;
-  background: var(--border-gray);
-  transition: background 0.3s ease;
-}
-
-/* Guión activo */
-.indicator.active {
-  background: var(--border-orange);
-}
-
 /* FOOTER — archivo */
 .footer {
   text-align: center;
@@ -459,4 +572,44 @@ nav a:hover {
   .profile-text-extended {
     margin-top: 10px;
   }
+
+  /* Inicio - Servicios */
+  /* Mueve la línea vertical al lado izquierdo */
+  .services-timeline::before {
+    left: 20px;
+    transform: none;
+  }
+
+  /* Cambia a disposición vertical: Texto arriba, Imagen abajo */
+  .service-item,
+  .service-item.item-reverse {
+    flex-direction: column;
+    align-items: flex-start; /* Alinea todo al borde izquierdo */
+    margin-bottom: 60px; /* Reduce espacio entre servicios en móvil */
+  }
+
+  /* Ajusta las columnas al ancho total */
+  .service-col {
+    width: 100%;
+    padding-left: 45px; /* Espacio para que el texto no pise la línea */
+    text-align: left !important; /* Fuerza alineación izquierda para todos */
+  }
+
+  /* Posiciona el punto frente al título del servicio */
+  .service-point {
+    left: 20px;
+    top: 10px; /* Altura alineada con la primera línea de texto */
+    transform: translateX(-50%);
+  }
+
+  /* Separación entre el bloque de texto y el carrusel inferior */
+  .service-media {
+    margin-top: 25px;
+  }
+
+  /* Reduce un poco la altura de las imágenes en pantallas pequeñas */
+  .service-media .carousel-track img {
+    height: 250px;
+  }
+  /* Fin - Servicios */
 }
