@@ -7,6 +7,8 @@
   --off-white: #f2f2f2;
   --border-gray: #2a2a2a;
   --border-orange: #783719;
+  --border-orange-circle: #784519a1;
+  --border-orange-arrow: #ff7700d9;
   --accent: #cfcfcf;
 }
 
@@ -82,12 +84,45 @@ nav a:hover {
 
 /* HERO — portada revista */
 .hero {
-  height: 100vh;
+  height: 110vh;               /* Un poco más alto que la pantalla para lucir la curva */
+  position: relative;          /* Referencia para los elementos internos absolutos */
+  overflow: hidden;            /* Evita que el SVG ancho genere scroll horizontal */
   background: url("assets/hero.jpg") center/cover no-repeat;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* --- CAPA DEL DIVISOR (LA CURVA) --- */
+.hero-divider {
+  position: absolute;          /* Se fija al fondo del hero */
+  bottom: 0;                   /* Pegado al límite inferior */
+  left: 0;                     /* Alineado a la izquierda */
+  width: 100%;                 /* Ocupa todo el ancho */
+  line-height: 0;              /* Elimina espacios fantasma bajo el SVG */
+  transform: rotate(180deg);   /* Invierte el SVG para que la curva apunte hacia abajo */
+  z-index: 2;                  /* Por encima de la foto pero bajo el texto */
+}
+
+.hero-divider svg {
+  position: relative;
+  display: block;
+  width: calc(150% + 1.3px);   /* Más ancho que el 100% para evitar bordes pixelados */
+  height: 150px;               /* Altura de la curva (más valor = curva más pronunciada) */
+}
+
+.hero-divider .shape-fill {
+  /* Este color DEBE ser igual al fondo de la sección que sigue (#perfil) */
+  fill: var(--black);          
+}
+
+/* --- SUPERPOSICIÓN DE LA SIGUIENTE SECCIÓN --- */
+#perfil {
+  position: relative;          /* Permite el uso de z-index */
+  z-index: 3;                  /* Capa superior al divisor curvo */
+  margin-top: -100px;          /* Sube la sección para montarse físicamente sobre el Hero */
+  background: var(--black);    /* Asegura un fondo sólido para cubrir el Hero */
+  padding-top: 40px;           /* Espacio para que el texto de perfil no toque la curva */
 }
 
 .overlay {
@@ -100,11 +135,12 @@ nav a:hover {
   );
 }
 
+/* --- AJUSTES DE TEXTO PARA NO INTERFERIR --- */
 .hero-content {
   position: relative;
+  z-index: 4;                  /* La capa más alta de todas */
+  margin-bottom: 120px;        /* Sube el texto para que la curva no lo pise visualmente */
   text-align: center;
-  max-width: 720px;
-  padding: 20px;
 }
 
 .hero h1 {
@@ -226,6 +262,51 @@ nav a:hover {
 }
 
 /* --- SECCIÓN SERVICIOS: CONTENEDOR DE ENCABEZADO --- */
+/* --- Inicio - CONTENEDOR PRINCIPAL DE SERVICIOS --- */
+.services-parallax-container {
+  position: relative; /* Necesario para que el fondo se posicione respecto a la sección */
+  overflow: hidden; /* Evita que la imagen de fondo sobresalga */
+  padding: 100px 0; /* Espaciado interno para dar aire al contenido */
+  background-color: var(
+    --black
+  ); /* Color de respaldo por si la imagen no carga */
+}
+
+/* --- IMAGEN DE FONDO ÚNICA --- */
+.services-bg-overlay {
+  position: absolute; /* Se coloca por debajo del contenido */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0; /* Se mantiene al fondo (el contenido debe tener z-index superior) */
+  pointer-events: none; /* Permite que el mouse "atraviese" la imagen para interactuar con botones */
+}
+
+.services-bg-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* La imagen cubre toda la sección sin deformarse */
+  filter: grayscale(100%) brightness(0.2); /* Escala de grises y oscurecimiento (20% de brillo) */
+  opacity: 0.4; /* Transparencia para que se funda con el fondo negro */
+}
+
+/* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
+.services-parallax-container .container {
+  position: relative; /* Eleva el contenido sobre la imagen de fondo */
+  z-index: 1; /* Asegura que el texto y carruseles estén arriba */
+}
+
+/* Refuerzo para que el texto destaque sobre el fondo con textura */
+.service-text h4 {
+  color: var(--off-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra sutil para legibilidad */
+}
+
+.service-text p {
+  color: #ccc; /* Un gris un poco más claro para compensar el fondo oscuro */
+}
+/* Fin - CONTENEDOR PRINCIPAL DE SERVICIOS */
 
 .services-header .headline {
   margin-bottom: 10px; /* Espacio bajo el título principal "Especialidades" */
@@ -269,7 +350,7 @@ nav a:hover {
   left: 50%; /* Se ubica exactamente a la mitad horizontal */
   top: 0; /* Comienza desde el inicio del contenedor */
   bottom: 0; /* Se extiende hasta el final del contenedor */
-  width: 1px; /* Grosor fino de estilo editorial */
+  width: 2px; /* Grosor fino de estilo editorial */
   background: var(--border-gray); /* Color gris oscuro sutil */
   transform: translateX(-50%); /* Ajuste fino para centrado perfecto */
 }
@@ -308,19 +389,19 @@ nav a:hover {
 .service-point {
   position: absolute; /* Se coloca libremente sobre la línea */
   left: 50%; /* Se ancla al centro horizontal */
-  width: 14px; /* Diámetro del punto */
-  height: 14px; /* Altura del punto */
-  background-color: var(--border-orange); /* Color sepia corporativo */
+  width: 16px; /* Diámetro del punto */
+  height: 16px; /* Altura del punto */
+  background-color: var(--border-orange-circle); /* Color sepia corporativo */
   border-radius: 50%; /* Hace que el cuadrado sea un círculo perfecto */
   transform: translateX(-50%); /* Centrado exacto sobre la línea vertical */
   z-index: 5; /* Se asegura de estar por encima de la línea */
-  border: 4px solid var(--border-orange); /* Crea un "hueco" visual alrededor del punto */
+  border: 4px solid var(--border-orange-circle); /* Crea un "hueco" visual alrededor del punto */
 }
 
 /* --- CARRUSEL Y BORDES REDONDEADOS --- */
 
 .service-media .carousel {
-  border-radius: 5px; /* Redondeado de esquinas del contenedor */
+  border-radius: 2px; /* Redondeado de esquinas del contenedor */
   overflow: hidden; /* Corta las imágenes que se salen al deslizarse */
   position: relative; /* Base para los botones de navegación */
 }
@@ -329,7 +410,7 @@ nav a:hover {
   height: 300px; /* Altura fija para mantener consistencia visual */
   width: 100%; /* Ocupa todo el ancho disponible de su columna */
   object-fit: cover; /* Ajusta la imagen sin deformarla (recorta excesos) */
-  border-radius: 5px; /* Doble refuerzo de redondeado en la imagen */
+  border-radius: 2px; /* Doble refuerzo de redondeado en la imagen */
   filter: grayscale(100%); /* Efecto inicial en blanco y negro */
   transition: all 0.5s ease; /* Transición suave para color y posibles escalas */
 }
@@ -440,39 +521,37 @@ nav a:hover {
 /* PROYECTOS — índice editorial  */
 /* Grid principal que contiene las tarjetas de proyectos */
 .projects-grid {
-  display: grid;
-  /* Distribuye los proyectos en columnas responsivas */
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  /* Espacio entre tarjetas */
-  gap: 40px;
-  /* Separación superior respecto al título */
+  display: flex; /* Alineación en fila */
+  flex-direction: row; /* Asegura la dirección horizontal */
+  flex-wrap: nowrap; /* Prohíbe que las tarjetas bajen a otra fila */
+
+  gap: 20px; /* Reducimos un poco el gap para ganar espacio */
   margin-top: 60px;
+  width: 100%; /* Ocupa el ancho total del contenedor */
+  justify-content: center; /* Centra las tarjetas si son pocas */
 }
 
-/* Tarjeta completa clicable */
 .project-card {
+  /* flex: 1 1 0; 
+     Esto hace que todas las tarjetas midan exactamente lo mismo 
+     y se repartan equitativamente el espacio disponible.
+  */
+  flex: 1 1 0;
+  min-width: 0; /* Permite que la tarjeta se encoja por debajo de su contenido */
+
   position: relative;
-  /* Permite posicionar el overlay encima de la imagen */
-  display: block;
-  /* Hace que el <a> se comporte como bloque */
-  text-decoration: none;
-  /* Elimina subrayado del enlace */
-  color: inherit;
-  /* Hereda el color del texto del sitio */
-  overflow: hidden;
-  /* Evita que la imagen escalada se salga del contenedor */
-  /* border-top: 1px solid var(--border-orange); */
-  /* Línea editorial superior (ritmo visual) */
+  height: 400px; /* Altura fija para mantener el estilo vertical */
+  border-radius: 8px; /* Coherencia con el diseño redondeado */
+  overflow: hidden; /* Mantiene las imágenes dentro de los bordes */
+  transition:
+    flex 0.5s ease,
+    transform 0.3s ease; /* Transición suave por si quieres efectos */
 }
 
-/* Imagen de portada del proyecto */
 .project-card img {
   width: 100%;
-  /* Ocupa todo el ancho del contenedor */
-  height: 320px;
-  /* Altura fija tipo portada editorial */
-  object-fit: cover;
-  /* Recorta la imagen sin deformarla */
+  height: 100%;
+  object-fit: cover; /* La imagen llena la tarjeta sin deformarse */
   filter: grayscale(100%) contrast(1.1);
   /* Tratamiento sobrio inicial */
   transition:
@@ -530,6 +609,71 @@ nav a:hover {
   filter: grayscale(0%) contrast(1.05);
   /* Devuelve el color gradualmente */
 }
+
+/* --- Inicio - INDICADOR CLICKEABLE (MÓVIL) --- */
+/* Por defecto oculto en escritorio */
+.mobile-click-indicator {
+  display: none;
+}
+@media (max-width: 768px) {
+  /* Hacemos visible el indicador en móvil */
+  .mobile-click-indicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    color: var(--border-orange-arrow); /* Color sepia para llamar la atención */
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.9;
+  }
+
+  /* Animación sutil de "pulso" para indicar que es interactivo */
+  .mobile-click-indicator svg {
+    animation: bounceRight 1.5s infinite;
+  }
+
+  /* Forzamos que la tarjeta en móvil tenga un brillo un poco mayor 
+     para que se entienda que es un elemento activo */
+  .project-card img {
+    filter: grayscale(0%) brightness(0.7) !important;
+  }
+}
+
+/* Animación de la flecha */
+@keyframes bounceRight {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/* --- AJUSTE DE LA FILA (Recordatorio del paso anterior) --- */
+.projects-grid {
+  display: flex;
+  flex-direction: row; /* Fila en escritorio */
+  flex-wrap: nowrap;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .projects-grid {
+    flex-direction: column; /* Columna en móvil */
+    gap: 25px;
+  }
+
+  .project-card {
+    height: 300px; /* Altura cómoda para click en móvil */
+    width: 100%;
+  }
+}
+/* --- Fin - INDICADOR CLICKEABLE (MÓVIL) --- */
+
 /* FIN - PROYECTOS — índice editorial  */
 /* ============================= */
 
@@ -559,14 +703,22 @@ nav a:hover {
     height: 200px;
   }
 
-  .project-card img {
-    filter: none;
-    transform: none;
+  .projects-grid {
+    flex-direction: column; /* Cambia a disposición vertical */
+    flex-wrap: wrap; /* Permite el flujo normal */
+    gap: 30px; /* Más espacio entre tarjetas verticales */
   }
 
-  /* Reduce altura de portada en pantallas pequeñas */
+  .project-card {
+    flex: none; /* Desactivamos el comportamiento de repartir ancho */
+    width: 100%; /* Ocupa todo el ancho de la pantalla */
+    height: 350px; /* Altura ajustada para móvil */
+  }
+
   .project-card img {
-    height: 240px;
+    filter: grayscale(
+      0%
+    ); /* En móvil mejor mostrar color directo (o usar el truco de scroll) */
   }
 
   .profile-text-extended {
@@ -609,7 +761,13 @@ nav a:hover {
 
   /* Reduce un poco la altura de las imágenes en pantallas pequeñas */
   .service-media .carousel-track img {
+    filter: grayscale(30%); /* En móvil, dejamos un poco de color por defecto */
     height: 250px;
   }
+
+  .services-bg-overlay img {
+    opacity: 0.3; /* Bajamos un poco más la opacidad en móvil para evitar ruido visual */
+  }
+
   /* Fin - Servicios */
 }
