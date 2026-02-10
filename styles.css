@@ -272,7 +272,7 @@ nav a:hover {
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--light-gray);
+  color: var(--border-orange);
   margin-bottom: 2rem;
 }
 .off-white-tagline {
@@ -388,7 +388,7 @@ nav a:hover {
   /* 3. Ajuste de contraste (Opcional) */
   /* Si el fondo es muy oscuro, aseguramos que el texto sea legible */
   #servicios .headline,
-  #servicios .tagline {
+  #servicios {
     color: var(--off-white);
   }
 }
