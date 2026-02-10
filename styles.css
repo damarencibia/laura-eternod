@@ -2,7 +2,7 @@
 :root {
   --black: #0e0e0e;
   --dark-gray: #171717;
-  --mid-gray: #2e2e2e;
+  --mid-gray: #1c1c1c;
   --light-gray: #9a9a9a;
   --off-white: #f2f2f2;
   --border-gray: #2a2a2a;
@@ -126,7 +126,7 @@ nav a:hover {
   z-index: 3; /* Capa superior al divisor curvo */
   margin-top: -100px; /* Sube la sección para montarse físicamente sobre el Hero */
   background: var(
-    --dark-gray
+    --mid-gray
   ); /* Asegura un fondo sólido para cubrir el Hero */
   padding-top: 40px; /* Espacio para que el texto de perfil no toque la curva */
 }
@@ -368,14 +368,28 @@ nav a:hover {
 
 /* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
 @media (max-width: 768px) {
+  /* 1. Ocultamos el contenedor de la imagen de fondo */
   .services-bg-overlay {
-    /* Aquí colocas la ruta de la nueva imagen optimizada para móvil */
-    /* background-image: url("assets/profile-background-mobile.jpg"); */
-
-    /* Ajuste opcional para móviles: puedes centrarla diferente si es necesario */
-    /* background-position: top center;  */
-    /* opacity: 0.5; Puedes ajustar la opacidad solo para móvil si prefieres */
     display: none;
+  }
+
+  /* 2. Aplicamos el color de fondo a la sección completa */
+  #servicios {
+    /* Usamos tu variable de gris oscuro o el color que prefieras */
+    background-color: var(--dark-gray);
+
+    /* Opcional: añadimos un color sólido directo si no quieres usar variables */
+    /* background-color: #171717; */
+
+    /* Aseguramos que no haya transparencias heredadas de otros estilos */
+    background-image: none !important;
+  }
+
+  /* 3. Ajuste de contraste (Opcional) */
+  /* Si el fondo es muy oscuro, aseguramos que el texto sea legible */
+  #servicios .headline,
+  #servicios .tagline {
+    color: var(--off-white);
   }
 }
 
