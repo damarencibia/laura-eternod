@@ -366,6 +366,19 @@ nav a:hover {
   z-index: 1; /* Asegura que el texto y carruseles estén arriba */
 }
 
+/* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
+@media (max-width: 768px) {
+  .services-bg-overlay {
+    /* Aquí colocas la ruta de la nueva imagen optimizada para móvil */
+    /* background-image: url("assets/profile-background-mobile.jpg"); */
+
+    /* Ajuste opcional para móviles: puedes centrarla diferente si es necesario */
+    /* background-position: top center;  */
+    /* opacity: 0.5; Puedes ajustar la opacidad solo para móvil si prefieres */
+    display: none;
+  }
+}
+
 /* Refuerzo para que el texto destaque sobre el fondo con textura */
 .service-text h4 {
   color: var(--off-white);
