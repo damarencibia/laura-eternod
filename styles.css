@@ -1,14 +1,14 @@
 /* PALETA (negros y grises) */
 :root {
   --black: #0e0e0e;
-  --dark-gray: #1a1a1a;
+  --dark-gray: #171717;
   --mid-gray: #2e2e2e;
   --light-gray: #9a9a9a;
   --off-white: #f2f2f2;
   --border-gray: #2a2a2a;
-  --border-orange: #783719;
-  --border-orange-circle: #784519a1;
-  --border-orange-arrow: #ff7700d9;
+  --border-orange: #dc4d0b;
+  --border-orange-circle: #dc4d0be8;
+  --border-orange-arrow: #dc4d0b;
   --accent: #cfcfcf;
 }
 
@@ -21,7 +21,7 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: var(--black);
+  background: var(--dark-gray);
   color: var(--off-white);
   line-height: 1.7;
 }
@@ -84,9 +84,9 @@ nav a:hover {
 
 /* HERO — portada revista */
 .hero {
-  height: 110vh;               /* Un poco más alto que la pantalla para lucir la curva */
-  position: relative;          /* Referencia para los elementos internos absolutos */
-  overflow: hidden;            /* Evita que el SVG ancho genere scroll horizontal */
+  height: 110vh; /* Un poco más alto que la pantalla para lucir la curva */
+  position: relative; /* Referencia para los elementos internos absolutos */
+  overflow: hidden; /* Evita que el SVG ancho genere scroll horizontal */
   background: url("assets/hero.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
@@ -95,34 +95,40 @@ nav a:hover {
 
 /* --- CAPA DEL DIVISOR (LA CURVA) --- */
 .hero-divider {
-  position: absolute;          /* Se fija al fondo del hero */
-  bottom: 0;                   /* Pegado al límite inferior */
-  left: 0;                     /* Alineado a la izquierda */
-  width: 100%;                 /* Ocupa todo el ancho */
-  line-height: 0;              /* Elimina espacios fantasma bajo el SVG */
-  transform: rotate(180deg);   /* Invierte el SVG para que la curva apunte hacia abajo */
-  z-index: 2;                  /* Por encima de la foto pero bajo el texto */
+  position: absolute; /* Se fija al fondo del hero */
+  bottom: 0; /* Pegado al límite inferior */
+  left: 0; /* Alineado a la izquierda */
+  width: 100%; /* Ocupa todo el ancho */
+  line-height: 0; /* Elimina espacios fantasma bajo el SVG */
+  transform: rotate(
+    180deg
+  ); /* Invierte el SVG para que la curva apunte hacia abajo */
+  z-index: 2; /* Por encima de la foto pero bajo el texto */
 }
 
 .hero-divider svg {
   position: relative;
   display: block;
-  width: calc(150% + 1.3px);   /* Más ancho que el 100% para evitar bordes pixelados */
-  height: 150px;               /* Altura de la curva (más valor = curva más pronunciada) */
+  width: calc(
+    150% + 1.3px
+  ); /* Más ancho que el 100% para evitar bordes pixelados */
+  height: 150px; /* Altura de la curva (más valor = curva más pronunciada) */
 }
 
 .hero-divider .shape-fill {
   /* Este color DEBE ser igual al fondo de la sección que sigue (#perfil) */
-  fill: var(--black);          
+  fill: var(--black);
 }
 
 /* --- SUPERPOSICIÓN DE LA SIGUIENTE SECCIÓN --- */
 #perfil {
-  position: relative;          /* Permite el uso de z-index */
-  z-index: 3;                  /* Capa superior al divisor curvo */
-  margin-top: -100px;          /* Sube la sección para montarse físicamente sobre el Hero */
-  background: var(--black);    /* Asegura un fondo sólido para cubrir el Hero */
-  padding-top: 40px;           /* Espacio para que el texto de perfil no toque la curva */
+  position: relative; /* Permite el uso de z-index */
+  z-index: 3; /* Capa superior al divisor curvo */
+  margin-top: -100px; /* Sube la sección para montarse físicamente sobre el Hero */
+  background: var(
+    --dark-gray
+  ); /* Asegura un fondo sólido para cubrir el Hero */
+  padding-top: 40px; /* Espacio para que el texto de perfil no toque la curva */
 }
 
 .overlay {
@@ -138,8 +144,8 @@ nav a:hover {
 /* --- AJUSTES DE TEXTO PARA NO INTERFERIR --- */
 .hero-content {
   position: relative;
-  z-index: 4;                  /* La capa más alta de todas */
-  margin-bottom: 120px;        /* Sube el texto para que la curva no lo pise visualmente */
+  z-index: 4; /* La capa más alta de todas */
+  margin-bottom: 120px; /* Sube el texto para que la curva no lo pise visualmente */
   text-align: center;
 }
 
@@ -170,6 +176,9 @@ nav a:hover {
 .section.light {
   background: var(--dark-gray);
 }
+.section.mid {
+  background: var(--mid-gray);
+}
 
 /* PERFIL — editorial serio */
 .profile-layout {
@@ -192,6 +201,7 @@ nav a:hover {
   font-size: 1.05rem;
   line-height: 1.9;
   margin-bottom: 22px;
+  color: var(--off-white);
 }
 
 .column-container {
@@ -210,6 +220,44 @@ nav a:hover {
 .categoria-imagen img {
   width: 100%;
   filter: grayscale(100%) contrast(1.1);
+  border-radius: 2px;
+}
+
+/* --- PERFIL: CONFIGURACIÓN DE IMAGEN DE FONDO --- */
+.profile-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Imagen por defecto (Escritorio) */
+  background-image: url("assets/profile-background.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.7; /* Mantiene tu estilo visual */
+}
+
+/* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
+@media (max-width: 768px) {
+  .profile-bg-overlay {
+    /* Aquí colocas la ruta de la nueva imagen optimizada para móvil */
+    /* background-image: url("assets/profile-background-mobile.jpg"); */
+
+    /* Ajuste opcional para móviles: puedes centrarla diferente si es necesario */
+    /* background-position: top center;  */
+    /* opacity: 0.5; Puedes ajustar la opacidad solo para móvil si prefieres */
+    display: none;
+  }
+}
+
+/* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
+.profile-parallax-container .container {
+  position: relative; /* Eleva el contenido sobre la imagen de fondo */
+  z-index: 1; /* Asegura que el texto y carruseles estén arriba */
 }
 
 /* TIPOGRAFÍA EDITORIAL */
@@ -227,11 +275,20 @@ nav a:hover {
   color: var(--light-gray);
   margin-bottom: 2rem;
 }
+.off-white-tagline {
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--off-white);
+  margin-bottom: 2rem;
+}
 
 .copy-text p {
   font-size: 1.05rem;
   line-height: 1.9;
   margin-bottom: 20px;
+  color: var(--off-white);
 }
 
 /* GRIDS — SERVICIOS */
@@ -274,13 +331,25 @@ nav a:hover {
 
 /* --- IMAGEN DE FONDO ÚNICA --- */
 .services-bg-overlay {
-  position: absolute; /* Se coloca por debajo del contenido */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0; /* Se mantiene al fondo (el contenido debe tener z-index superior) */
-  pointer-events: none; /* Permite que el mouse "atraviese" la imagen para interactuar con botones */
+  z-index: 0;
+  pointer-events: none;
+
+  /* Imagen por defecto (Escritorio) */
+  background-image: url("assets/services-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  object-fit: cover; /* La imagen cubre toda la sección sin deformarse */
+  filter: grayscale(
+    100%
+  ); /* Escala de grises y oscurecimiento (20% de brillo) */
+  opacity: 0.1; /* Transparencia para que se funda con el fondo negro */
 }
 
 .services-bg-overlay img {
@@ -288,7 +357,7 @@ nav a:hover {
   height: 100%;
   object-fit: cover; /* La imagen cubre toda la sección sin deformarse */
   filter: grayscale(100%) brightness(0.2); /* Escala de grises y oscurecimiento (20% de brillo) */
-  opacity: 0.4; /* Transparencia para que se funda con el fondo negro */
+  opacity: 0.8; /* Transparencia para que se funda con el fondo negro */
 }
 
 /* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
@@ -395,7 +464,7 @@ nav a:hover {
   border-radius: 50%; /* Hace que el cuadrado sea un círculo perfecto */
   transform: translateX(-50%); /* Centrado exacto sobre la línea vertical */
   z-index: 5; /* Se asegura de estar por encima de la línea */
-  border: 4px solid var(--border-orange-circle); /* Crea un "hueco" visual alrededor del punto */
+  /* border: 4px solid var(--border-orange-circle); Crea un "hueco" visual alrededor del punto */
 }
 
 /* --- CARRUSEL Y BORDES REDONDEADOS --- */
@@ -615,6 +684,32 @@ nav a:hover {
 .mobile-click-indicator {
   display: none;
 }
+
+/* --- ANIMACIONES DE REVELACIÓN (SCROLL REVEAL) --- */
+
+/* Estado inicial: Invisible y 50px más abajo */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out; /* Controla la suavidad y duración */
+  visibility: hidden;
+}
+
+/* Estado activo: Visible y en su posición original */
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
+
+/* Retrasos opcionales para elementos en cascada (opcional) */
+.delay-1 {
+  transition-delay: 0.2s;
+}
+.delay-2 {
+  transition-delay: 0.4s;
+}
+
 @media (max-width: 768px) {
   /* Hacemos visible el indicador en móvil */
   .mobile-click-indicator {
@@ -686,6 +781,145 @@ nav a:hover {
   color: var(--light-gray);
   letter-spacing: 1px;
   text-transform: uppercase;
+}
+
+/* --- PERFIL: CONFIGURACIÓN DE IMAGEN DE FONDO --- */
+.contacto-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+
+  /* Imagen por defecto (Escritorio) */
+  background-image: url("assets/contacto-background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: grayscale(
+    100%
+  ); /* Escala de grises y oscurecimiento (20% de brillo) */
+  opacity: 0.7; /* Mantiene tu estilo visual */
+}
+
+/* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
+@media (max-width: 768px) {
+  .contacto-bg-overlay {
+    /* Aquí colocas la ruta de la nueva imagen optimizada para móvil */
+    background-image: url("assets/contacto-background.jpg");
+
+    /* Ajuste opcional para móviles: puedes centrarla diferente si es necesario */
+    background-position: top center;
+    opacity: 0.5; /*Puedes ajustar la opacidad solo para móvil si prefieres*/
+  }
+}
+
+/* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
+.contacto-parallax-container .container {
+  position: relative; /* Eleva el contenido sobre la imagen de fondo */
+  z-index: 1; /* Asegura que el texto y carruseles estén arriba */
+}
+
+/* --- SECCIÓN CONTACTO --- */
+.contacto-parallax-container {
+  position: relative;
+  background-color: var(--black);
+  padding: 120px 0;
+  overflow: hidden;
+}
+
+/* Distribución en dos columnas */
+.contacto-layout {
+  display: flex;
+  justify-content: space-between; /* Empuja info a la izq y redes a la der */
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.contacto-info {
+  text-align: left;
+}
+
+.contacto-link {
+  font-size: 1.8rem;
+  color: var(--off-white);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  display: block;
+  margin: 10px 0;
+}
+
+.contacto-link:hover {
+  color: var(--border-orange);
+}
+
+/* Contenedor de Redes (Derecha) */
+.social-links-container {
+  text-align: right;
+}
+
+.social-grid {
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end; /* Alinea botones a la derecha */
+  margin-top: 20px;
+}
+
+.social-btn {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--border-gray);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--off-white);
+  transition: all 0.4s ease;
+  background: rgba(0, 0, 0, 0.83);
+}
+
+.social-btn:hover {
+  border-color: var(--border-orange);
+  color: var(--border-orange);
+  transform: translateY(-5px);
+}
+
+/* Fondo con textura */
+.contacto-bg-overlay img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.15;
+  filter: grayscale(100%);
+  z-index: 0;
+}
+
+/* RESPONSIVE: En móvil todo al centro y uno debajo de otro */
+@media (max-width: 768px) {
+  .contacto-layout {
+    flex-direction: column;
+    text-align: center;
+    gap: 50px;
+  }
+
+  .contacto-info,
+  .social-links-container {
+    text-align: center;
+  }
+
+  .social-grid {
+    justify-content: center;
+  }
+
+  .contacto-link {
+    font-size: 1.4rem;
+  }
 }
 
 /* RESPONSIVE */
