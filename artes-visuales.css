@@ -1,0 +1,174 @@
+/* =========================
+   BASE
+========================= */
+
+.bg-black {
+  background-color: #0b0b0b;
+  color: #f2f2f2;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* =========================
+   NAV
+========================= */
+
+.nav-back {
+  padding: 40px 0;
+}
+
+.back-link {
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #999;
+  transition: color 0.3s ease;
+}
+
+.back-link:hover {
+  color: #ff7a00;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.art-header {
+  padding: 60px 0 120px;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ff7a00;
+}
+
+.headline-serif {
+  font-family: "Inter", sans-serif;
+  font-size: clamp(3rem, 8vw, 5rem);
+  margin: 20px 0;
+  font-weight: 400;
+}
+
+.art-statement {
+  font-family: "Inter", sans-serif;
+  font-style: italic;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: #bfbfbf;
+}
+
+/* =========================
+   SECCIONES
+========================= */
+
+.art-section {
+  margin-bottom: 160px;
+}
+
+.art-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.art-layout.reverse {
+  direction: rtl;
+}
+
+.art-layout.reverse .art-content {
+  direction: ltr;
+}
+
+.art-image img {
+  width: 100%;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.6s ease;
+}
+
+.art-image img:hover {
+  filter: grayscale(0%);
+}
+
+.serif-title {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.art-content p {
+  line-height: 1.8;
+  color: #d0d0d0;
+}
+
+.art-caption {
+  margin-top: 30px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ff7a00;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.art-footer {
+  padding: 60px 0;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+/* =========================
+   REVEAL ANIMATION
+========================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: 0.8s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+  .art-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .art-layout.reverse {
+    direction: ltr;
+  }
+
+  .art-image img {
+    filter: none;
+  }
+
+  .art-section {
+    margin-bottom: 100px;
+  }
+
+  .headline-serif {
+    font-size: 3rem;
+  }
+}

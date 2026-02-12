@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artes Visuales | Laura Eternod</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="artes-visuales.css">
+</head>
+
+<body class="bg-black">
+
+  <!-- NAV -->
+  <nav class="nav-back">
+    <a href="index.html" class="back-link">← Volver al inicio</a>
+  </nav>
+
+  <!-- HEADER -->
+  <header class="art-header reveal">
+    <div class="container">
+      <span class="eyebrow">Dossier Artístico</span>
+      <h1 class="headline-serif">Artes Visuales</h1>
+      <p class="art-statement">
+        Investigación visual centrada en la memoria, el sincretismo cultural y
+        la reapropiación simbólica. El collage y la intervención gráfica
+        funcionan como herramientas para reinterpretar narrativas históricas
+        desde una mirada contemporánea.
+      </p>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- OBRA 1 -->
+    <section class="art-section reveal">
+      <div class="art-layout">
+        <div class="art-image">
+          <img src="assets/hero.jpg" alt="Mitote">
+        </div>
+
+        <div class="art-content">
+          <h2 class="serif-title">Mitote</h2>
+          <p>
+            Serie que explora el concepto de ritual colectivo y desplazamiento
+            simbólico. A través de la superposición de capas gráficas se construye
+            una narrativa fragmentada donde tradición y contemporaneidad coexisten.
+          </p>
+          <p class="art-caption">
+            Técnica mixta sobre papel — 2023
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBRA 2 -->
+    <section class="art-section reveal">
+      <div class="art-layout reverse">
+        <div class="art-image">
+          <img src="assets/pintura-2.jpg" alt="El Vientre">
+        </div>
+
+        <div class="art-content">
+          <h2 class="serif-title">El Vientre</h2>
+          <p>
+            Instalación que aborda la interculturalidad como proceso orgánico.
+            La obra propone una lectura del cuerpo como archivo simbólico,
+            integrando fotografía intervenida y collage expandido.
+          </p>
+          <p class="art-caption">
+            Instalación / Collage / Fotografía — 2022
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- OBRA 3 -->
+    <section class="art-section reveal">
+      <div class="art-layout">
+        <div class="art-image">
+          <img src="assets/pintura-3.jpg" alt="Coatlicue">
+        </div>
+
+        <div class="art-content">
+          <h2 class="serif-title">Coatlicue</h2>
+          <p>
+            Relectura contemporánea de la iconografía prehispánica.
+            La pieza descompone la figura original para reconstruirla
+            mediante un lenguaje visual híbrido que cuestiona las
+            representaciones tradicionales del poder y la feminidad.
+          </p>
+          <p class="art-caption">
+            Collage digital intervenido — 2024
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="art-footer">
+    <p>© Laura Eternod – 2024</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
