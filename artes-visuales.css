@@ -3,7 +3,7 @@
 ========================= */
 
 .bg-black {
-  background-color: #0b0b0b;
+  background-color: #171717;
   color: #f2f2f2;
 }
 
@@ -72,6 +72,8 @@
 
 .art-section {
   margin-bottom: 160px;
+  background-color: #0b0b0b;
+  padding: 120px 40px; /* 120px arriba/abajo, 40px lados */
 }
 
 .art-layout {
@@ -120,6 +122,84 @@
 }
 
 /* =========================
+   OBRA 4 - SECCIÓN DIVIDIDA
+========================= */
+
+.split-section {
+  position: relative;
+  padding: 100px 0 160px;
+  overflow: hidden;
+}
+
+/* Fondo mitad negro / mitad blanco */
+.split-background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #0e0e0e 50%, #ffffff 50%);
+  z-index: 0;
+}
+
+/* Contenido encima del fondo */
+.split-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Imagen flotante */
+.split-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.split-image img {
+  width: 100%;
+  max-width: 700px;
+  filter: grayscale(15%);
+  transition: filter 0.6s ease;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+}
+
+.split-image img:hover {
+  filter: grayscale(0%);
+}
+
+/* Texto en zona blanca */
+.split-text {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #111;
+}
+
+/* Título oscuro */
+.dark-title {
+  color: #111;
+}
+
+/* Caption oscuro */
+.dark-caption {
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .split-section {
+    padding: 120px 0;
+  }
+
+  .split-image img {
+    width: 95%;
+    box-shadow: none;
+    filter: none;
+  }
+
+  .split-text {
+    padding: 0 20px;
+    margin-top: 15vh;
+  }
+}
+
+/* =========================
    FOOTER
 ========================= */
 
@@ -150,7 +230,6 @@
 ========================= */
 
 @media (max-width: 900px) {
-
   .art-layout {
     grid-template-columns: 1fr;
     gap: 40px;
