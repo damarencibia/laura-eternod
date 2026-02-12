@@ -126,7 +126,7 @@ nav a:hover {
   z-index: 3; /* Capa superior al divisor curvo */
   margin-top: -100px; /* Sube la sección para montarse físicamente sobre el Hero */
   background: var(
-    --mid-gray
+    --dark-gray
   ); /* Asegura un fondo sólido para cubrir el Hero */
   padding-top: 40px; /* Espacio para que el texto de perfil no toque la curva */
 }
@@ -252,6 +252,10 @@ nav a:hover {
     /* opacity: 0.5; Puedes ajustar la opacidad solo para móvil si prefieres */
     display: none;
   }
+
+  #perfil {
+    background: var(--mid-gray);
+  }
 }
 
 /* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
@@ -325,7 +329,7 @@ nav a:hover {
   overflow: hidden; /* Evita que la imagen de fondo sobresalga */
   padding: 100px 0; /* Espaciado interno para dar aire al contenido */
   background-color: var(
-    --black
+    --dark-gray
   ); /* Color de respaldo por si la imagen no carga */
 }
 
@@ -625,6 +629,16 @@ nav a:hover {
   margin-top: 60px;
   width: 100%; /* Ocupa el ancho total del contenedor */
   justify-content: center; /* Centra las tarjetas si son pocas */
+}
+
+.project-parallax-container {
+  background-color: var(--dark-gray);
+}
+
+@media (max-width: 768px){
+  .project-parallax-container {
+  background-color: var(--mid-gray);
+}
 }
 
 .project-card {
