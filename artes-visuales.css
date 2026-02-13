@@ -125,28 +125,24 @@
    OBRA 4 - SECCIÓN DIVIDIDA
 ========================= */
 
-.split-section {
-  position: relative;
-  padding: 100px 0 160px;
-  overflow: hidden;
+.work-section.split-section {
+  margin-bottom: 160px;
+  padding: 120px 40px;
+
+  /* Mitad negra arriba / mitad blanca abajo */
+  background: linear-gradient(
+    to bottom,
+    #0e0e0e 30%,
+    #ffffff 30%
+  );
 }
 
-/* Fondo mitad negro / mitad blanco */
-.split-background {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, #0e0e0e 50%, #ffffff 50%);
-  z-index: 0;
-}
-
-/* Contenido encima del fondo */
+/* Contenido centrado */
 .split-content {
-  position: relative;
-  z-index: 1;
   text-align: center;
 }
 
-/* Imagen flotante */
+/* Imagen */
 .split-image {
   display: flex;
   justify-content: center;
@@ -154,8 +150,8 @@
 }
 
 .split-image img {
-  width: 100%;
-  max-width: 700px;
+  width: 80%;
+  max-width: 900px;
   filter: grayscale(15%);
   transition: filter 0.6s ease;
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
@@ -172,32 +168,33 @@
   color: #111;
 }
 
-/* Título oscuro */
 .dark-title {
   color: #111;
 }
 
-/* Caption oscuro */
 .dark-caption {
   color: #444;
 }
 
+/* Responsive */
 @media (max-width: 768px) {
-  .split-section {
-    padding: 120px 0;
+
+  .work-section.split-section {
+    padding: 100px 20px;
   }
 
   .split-image img {
-    width: 95%;
+    width: 100%;
     box-shadow: none;
     filter: none;
   }
 
   .split-text {
-    padding: 0 20px;
-    margin-top: 15vh;
+    margin-top: 40px;
   }
+
 }
+
 
 /* =========================
    FOOTER
