@@ -39,7 +39,7 @@
 ========================= */
 
 .art-header {
-  padding: 60px 0 120px;
+  padding: 60px 0 120px;  
   text-align: center;
 }
 
@@ -216,11 +216,12 @@
 .art-section-mobile {
   margin-bottom: 160px;
   background-color: #0b0b0b;
-  padding: 20px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
+  padding: 0px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
   background: linear-gradient(to bottom, #0e0e0e 30%, #ffffff 30%);
 }
 
 .art-image-mobile img {
+  margin-top: 70px;
   width: 100%;
   display: block;
   filter: grayscale(20%);
@@ -229,6 +230,36 @@
 
 .art-image-mobile img:hover {
   filter: grayscale(0%);
+}
+
+.serif-title-mobile {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.serif-title-dark-mobile {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #171717;
+}
+
+.art-content-mobile p {
+  line-height: 1.8;
+  color: #d0d0d0;
+}
+.art-content-dark-mobile p {
+  line-height: 1.8;
+  color: #171717;
+}
+
+.art-caption-mobile {
+  margin-top: 30px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ff7a00;
 }
 
 @media (min-width: 900px) {
