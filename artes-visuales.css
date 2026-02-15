@@ -69,11 +69,10 @@
 /* =========================
    SECCIONES
 ========================= */
-
 .art-section {
   margin-bottom: 160px;
   background-color: #0b0b0b;
-  padding: 120px 40px; /* 120px arriba/abajo, 40px lados */
+  padding: 20px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
 }
 
 .art-layout {
@@ -108,9 +107,20 @@
   margin-bottom: 20px;
 }
 
+.serif-title-dark {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #171717;
+}
+
 .art-content p {
   line-height: 1.8;
   color: #d0d0d0;
+}
+.art-content-dark p {
+  line-height: 1.8;
+  color: #171717;
 }
 
 .art-caption {
@@ -124,21 +134,28 @@
 /* =========================
    OBRA 4 - SECCIÓN DIVIDIDA
 ========================= */
-
-.work-section.split-section {
-  margin-bottom: 160px;
-  padding: 50px ;
-
-  /* Mitad negra arriba / mitad blanca abajo */
-  background: linear-gradient(to bottom, #0e0e0e 50%, #ffffff 50%);
+.split-section {
+  position: relative;
+  padding: 100px 0 160px;
+  overflow: hidden;
 }
 
-/* Contenido centrado */
+/* Fondo mitad negro / mitad blanco */
+.split-background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #0e0e0e 50%, #ffffff 50%);
+  z-index: 0;
+}
+
+/* Contenido encima del fondo */
 .split-content {
+  position: relative;
+  z-index: 1;
   text-align: center;
 }
 
-/* Imagen */
+/* Imagen flotante */
 .split-image {
   display: flex;
   justify-content: center;
@@ -147,12 +164,11 @@
 
 .split-image img {
   width: 100%;
-  max-width: none;
+  max-width: 1000px;
   filter: grayscale(15%);
   transition: filter 0.6s ease;
   box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
 }
-
 
 .split-image img:hover {
   filter: grayscale(0%);
@@ -165,34 +181,61 @@
   color: #111;
 }
 
+/* Título oscuro */
 .dark-title {
   color: #111;
 }
 
+/* Caption oscuro */
 .dark-caption {
   color: #444;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
-  .work-section.split-section {
-    padding: 100px 20px;
-    /* Mitad negra arriba / mitad blanca abajo */
-    background: linear-gradient(to bottom, #0e0e0e 30%, #ffffff 30%);
-    max-height: 500px;
+  .split-section {
+    display: none;
   }
 
   .split-image img {
-    width: 110%;
+    width: 95%;
     box-shadow: none;
     filter: none;
+    margin-top: 60vh;
   }
 
   .split-text {
-    margin-top: 40px;
+    padding: 0 20px;
+    margin-top: 30vh;
   }
 }
 
+/* =========================
+   OBRA 4 - MOBILE
+========================= */
+
+.art-section-mobile {
+  margin-bottom: 160px;
+  background-color: #0b0b0b;
+  padding: 20px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
+  background: linear-gradient(to bottom, #0e0e0e 30%, #ffffff 30%);
+}
+
+.art-image-mobile img {
+  width: 100%;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.6s ease;
+}
+
+.art-image-mobile img:hover {
+  filter: grayscale(0%);
+}
+
+@media (min-width: 900px) {
+  .art-section-mobile {
+    display: none;
+  }
+}
 /* =========================
    FOOTER
 ========================= */
@@ -244,5 +287,4 @@
   .headline-serif {
     font-size: 3rem;
   }
-  
 }
