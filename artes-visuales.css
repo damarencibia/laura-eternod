@@ -9,7 +9,7 @@
 
 .container {
   width: 90%;
-  max-width: 1200px;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -39,7 +39,7 @@
 ========================= */
 
 .art-header {
-  padding: 60px 0 120px;  
+  padding: 60px 0 120px;
   text-align: center;
 }
 
@@ -70,9 +70,9 @@
    SECCIONES
 ========================= */
 .art-section {
-  margin-bottom: 160px;
+  margin-bottom: 30px;
   background-color: #0b0b0b;
-  padding: 20px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
+  padding: 20px 20px 20px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
 }
 
 .art-layout {
@@ -114,13 +114,17 @@
   color: #171717;
 }
 
-.art-content p {
-  line-height: 1.8;
-  color: #d0d0d0;
+.art-content {
+  text-align: center; /* Centra todos los h2, p y captions dentro */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
+
 .art-content-dark p {
   line-height: 1.8;
   color: #171717;
+  
 }
 
 .art-caption {
@@ -312,7 +316,7 @@
   }
 
   .art-section {
-    margin-bottom: 100px;
+    margin-bottom: 30px;
   }
 
   .headline-serif {
