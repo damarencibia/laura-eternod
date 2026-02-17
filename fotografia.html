@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Artes Visuales | Laura Eternod</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="fotografia.css" />
+  </head>
+
+  <body class="bg-black">
+    <!-- NAV -->
+    <nav class="nav-back">
+      <a href="index.html" class="back-link">← Volver al inicio</a>
+    </nav>
+
+    <!-- HEADER -->
+    <header class="art-header reveal">
+      <div class="container">
+        <span class="eyebrow">Dossier Artístico</span>
+        <h1 class="headline-serif">Fotografía</h1>
+        <p class="art-statement">
+          Laura Eternod posee nominaciones a mejor fotografía con la imagen
+          “Extrañar al prójimo” de la serie fotográfica “La Dicha”, otorgada por
+          la plataforma internacional Refocus Awards, categoría “People”, Mount
+          Pleasant, Michigan, Estados Unidos de América, 2022 y premio al Mérito
+          Fotográfico a la serie fotográfica “Teoría de Murphy” otorgado por
+          Black & White Portfolio Contest 2021, publicadas en Special Issues
+          #147 de Black & White magazine, año 2021, Arroyo Grande, California,
+          Estados Unidos de América.
+        </p>
+      </div>
+    </header>
+
+    <main class="container">
+      <!-- SERIE FOTOGRÁFICA LA DICHA -->
+      <section class="series-exhibit reveal">
+        <div class="series-header">
+          <h2 class="series-title">LA DICHA</h2>
+          <span class="series-year">2021</span>
+        </div>
+
+        <div class="series-grid">
+          <img src="assets/fotografia/dicha1.png" alt="" />
+          <img src="assets/fotografia/dicha2.png" alt="" />
+          <img src="assets/fotografia/dicha3.png" alt="" />
+          <img src="assets/fotografia/dicha4.png" alt="" />
+        </div>
+
+        <p class="series-caption">
+          Nominación a “Mejor serie fotográfica”, Concurso Nacional de
+          Fotografía “Lente Inquieto”, La Habana, Cuba, 2021.
+        </p>
+      </section>
+
+      <!-- OBRA 1 -->
+      <section class="art-section reveal">
+        <div class="art-layout">
+          <div class="art-image">
+            <img src="assets/fotografia/dicha5.png" alt="" />
+          </div>
+
+          <div class="art-content">
+            <p>
+              ¿Quiénes somos al amar? ¿Nos entrelazamos y nos identificamos en
+              quién amamos? la serie fotográfica “La Dicha” reflexiona sobre la
+              libertad y el amor en contextos herméticos de comunidades
+              latinoamericanas, bajo matices blancos y negros, todo narrado en
+              18 imágenes.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- OBRA 2 -->
+      <section class="art-section reveal">
+        <div class="art-layout reverse">
+          <div class="art-image">
+            <img src="assets/fotografia/dicha6.png" alt="" />
+          </div>
+
+          <div class="art-content">
+            <p>
+              “EXTRAÑAR AL PRÓJIMO” DE LA SERIE “LA DICHA” Nominación “Mejor
+              Fotografía”. Plataforma Internacional Refocus Awards. Categoría
+              “People”. Mount Pleasant, Michigan, EUA, 2022
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DISENO OBRA EN CAPAS -->
+      <section class="art-section split-section reveal">
+        <!-- Fondo dividido -->
+        <div class="split-background"></div>
+
+        <div class="container split-content">
+          <!-- Imagen centrada -->
+          <div class="split-image">
+            <img src="assets/contacto-background.png" alt="Obra 4" />
+          </div>
+
+          <!-- Texto en zona blanca -->
+          <div class="split-text">
+            <h2 class="serif-title dark-title">Fragmento Ritual</h2>
+            <p>
+              Pieza que explora la tensión entre luz y sombra como metáfora de
+              construcción identitaria. La composición sitúa la imagen como eje
+              de transición entre dos campos cromáticos opuestos.
+            </p>
+            <p class="art-caption dark-caption">Técnica mixta — 2024</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="art-footer">
+      <p>© Laura Eternod – 2024</p>
+    </footer>
+
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.1 },
+      );
+
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

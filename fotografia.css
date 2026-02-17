@@ -8,8 +8,8 @@
 }
 
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 100%;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -72,7 +72,7 @@
 .art-section {
   margin-bottom: 30px;
   background-color: #0b0b0b;
-  padding: 20px 20px 20px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
+  padding: 0px 0px 0px 0px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
 }
 
 .art-layout {
@@ -87,7 +87,8 @@
 }
 
 .art-layout.reverse .art-content {
-  direction: ltr;
+  margin: 0 auto;
+  direction: ltr; /* Asegura que el texto no se alinee a la derecha internamente */
 }
 
 .art-image img {
@@ -115,16 +116,22 @@
 }
 
 .art-content {
-  text-align: center; /* Centra todos los h2, p y captions dentro */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+
+  /* NUEVOS AJUSTES */
+  padding: 60px ; /* Espacio interno de seguridad */
+  max-width: 1000px;       /*Evita que el texto sea demasiado ancho y difícil de leer
+  margin: 0 auto; /* Centra el bloque de texto dentro de su columna del grid */
 }
 
 .art-content-dark p {
   line-height: 1.8;
   color: #171717;
-  
 }
 
 .art-caption {
@@ -135,6 +142,11 @@
   color: #ff7a00;
 }
 
+@media (max-width: 768px) {
+  .art-content {
+    padding: 10px; /* Espacio interno de seguridad */
+  }
+}
 /* =========================
    OBRA 4 - SECCIÓN DIVIDIDA
 ========================= */
@@ -271,6 +283,145 @@
     display: none;
   }
 }
+
+/****************************************************/
+/* =========================
+   SERIE EXPOSICIÓN
+========================= */
+
+.series-exhibit {
+  background-color: #000;
+  padding: 5px 0px 50px 0px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Header */
+.series-header {
+  margin-bottom: 20px;
+}
+
+.series-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.5rem, 7vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.series-year {
+  display: block;
+  margin-top: 5px;
+  font-size: 1rem;
+  color: #aaa;
+}
+
+/* Grid imágenes */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
+  width: 98%;
+  max-width: 1800px; /* MÁS ancho */
+  margin: 0 auto;
+}
+
+.series-grid img {
+  width: 100%;
+  height: auto; /* ← clave */
+  object-fit: unset;
+  display: block;
+  filter: grayscale(100%);
+  transition:
+    filter 0.6s ease,
+    transform 0.6s ease;
+}
+
+.series-grid img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+/* Caption */
+.series-caption {
+  margin-top: 40px;
+  font-size: 1rem;
+  color: #ccc;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================
+   SERIE EXPOSICIÓN RESPONSIVE
+========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .series-exhibit {
+    padding: 100px 0;
+  }
+
+  .series-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 90%;
+  }
+
+  .series-grid img {
+    height: 420px;
+  }
+
+  .series-title {
+    font-size: 3.5rem;
+  }
+
+  .series-year {
+    font-size: 1.5rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .series-exhibit {
+    padding: 80px 0;
+  }
+
+  .series-header {
+    margin-bottom: 60px;
+  }
+
+  .series-title {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
+
+  .series-year {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+
+  .series-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    width: 92%;
+  }
+
+  .series-grid img {
+    height: auto; /* MUY IMPORTANTE */
+    max-height: none;
+  }
+
+  .series-caption {
+    margin-top: 60px;
+    font-size: 0.9rem;
+    padding: 0 20px;
+  }
+}
+
+/****************************************************/
+
 /* =========================
    FOOTER
 ========================= */
