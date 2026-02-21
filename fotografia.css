@@ -288,7 +288,6 @@
 /* =========================
    SERIE - TEORÍA DE MURPHY
 ========================= */
-
 .series-murphy {
   margin-top: 30px;
   padding: 0;
@@ -312,7 +311,7 @@
   margin-bottom: 30px;
   background: linear-gradient(to bottom, #000 50%, #000 50%);
 
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 /* Imagen dentro del flujo */
@@ -320,7 +319,7 @@
   width: 98%;
   max-width: 1600px;
   margin: 0 auto;
-  padding-top: 15px;
+  padding-top: 10px;
 }
 
 .murphy-image img {
@@ -328,7 +327,6 @@
   height: 650px;
   object-fit: cover;
   display: block;
-  filter: grayscale(100%);
 }
 
 /* Texto debajo */
@@ -363,8 +361,8 @@
   }
 
   .murphy-image {
-    width: 100%;
-    padding-top: 0;
+    width: 90%;
+    padding-top: 1;
   }
 
   .murphy-image img {
@@ -384,12 +382,13 @@
     font-size: 1.6rem;
     letter-spacing: 1px;
     margin: 0 0 8px 0; /* separación controlada con el año */
-    margin-left: 1px;
+    margin-left: 5px;
   }
 
   .murphy-year {
     font-size: 1rem;
     margin: 0;
+    margin-left: 5px;
   }
 }
 /****************************************************/
@@ -462,19 +461,18 @@
 .abyeccion-section {
   margin-top: 30px;
   background: #141c1f; /* tono oscuro ligeramente verdoso */
-  padding: 20px 0px 20px;
+  padding: 12px 0px 12px;
 }
 
 .abyeccion-inner {
-  width: 96%;
+  width: 98%;
   max-width: 1700px;
   margin: 0 auto;
 }
 
 .abyeccion-image img {
   width: 100%;
-  height: 650px;
-  object-fit: cover;
+  height: auto; /* ← clave */
   display: block;
 }
 
@@ -504,7 +502,6 @@
 
   .abyeccion-image img {
     height: auto;
-    aspect-ratio: 16/9;
   }
 
   .abyeccion-title {
@@ -518,9 +515,110 @@
 
   .abyeccion-text {
     margin-top: 25px;
+    margin-left: 2px;
   }
+}
 
-  /* OBRA 8 */
+/* OBRA 8 */
+.editorial-grid {
+  margin-top: 30px;
+  background: #0f1416;
+  padding: 20px;
+}
+
+.grid-container {
+  max-width: 1300px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 10px;
+}
+
+/* La imagen izquierda ocupa dos filas */
+.item-left {
+  grid-row: span 2;
+}
+
+/* Todas las imágenes iguales */
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+/****************************************************/
+
+/****************************************************/
+/* =========================
+   SECCIÓN RETRATOS (COLLAGE)
+========================= */
+.retratos-section {
+  background: #e9e9e9;
+  padding: 50px 0;
+  width: 95%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.retratos-inner {
+  width: 95%;
+  /* Esto controla qué tan pequeño es el collage en pantalla */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.retratos-columns {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start; /* Evita que las columnas se estiren entre sí */
+}
+
+.retratos-col {
+  flex: 1; /* Todas las columnas miden lo mismo de ancho */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.retrato-item img {
+  width: 100%;
+  height: auto; /* LA CLAVE: La imagen mantiene su proporción original */
+  display: block;
+  /* object-fit: cover; Opcional: solo si quieres que todas las cajas midan igual, 
+     pero si no quieres que se corten, déjalo en auto */
+}
+
+/* Ajustes específicos para igualar tu imagen de referencia */
+
+.retrato-title-container {
+  padding: 20px 0;
+  text-align: center;
+}
+
+.retrato-grid-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  color: #000;
+}
+
+/* Hacemos que la foto del anciano sea un poco más ancha si es necesario */
+.span-2-cols {
+  width: 100%;
+}
+
+/* Responsivo */
+@media (max-width: 800px) {
+  .retratos-columns {
+    flex-wrap: wrap;
+  }
+  .retratos-col {
+    flex: 1 1 45%; /* Dos columnas en tablet/móvil */
+  }
 }
 /****************************************************/
 
