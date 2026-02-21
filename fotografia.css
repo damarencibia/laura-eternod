@@ -39,7 +39,7 @@
 ========================= */
 
 .art-header {
-  padding: 60px 0 120px;
+  padding: 60px 0 50px;
   text-align: center;
 }
 
@@ -64,6 +64,106 @@
   margin: 0 auto;
   line-height: 1.8;
   color: #bfbfbf;
+}
+
+/* =========================
+   Navegación / Índice Sticky
+========================= */
+.art-index {
+  position: -webkit-sticky; /* Soporte Safari */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85); /* Fondo negro traslúcido */
+  backdrop-filter: blur(8px); /* Efecto desenfoque moderno */
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 18px 0;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.art-index ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(15px, 4vw, 40px); /* Espaciado fluido */
+  margin: 0;
+  padding: 0;
+}
+
+.art-index a {
+  text-decoration: none;
+  color: #666; /* Color apagado por defecto */
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition:
+    color 0.3s ease,
+    transform 0.3s ease;
+  position: relative;
+}
+
+/* Hover */
+.art-index a:hover {
+  color: #bbb;
+}
+
+/* Estado Activo (Controlado por JS) */
+.art-index a.active-link {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+/* Línea sutil debajo del enlace activo */
+.art-index a.active-link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 1px;
+  background-color: #fff;
+  transition: width 0.3s ease;
+}
+
+/* Evitar que el menú tape el título al saltar al ID */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+/* --- Ajustes Responsive --- */
+@media (max-width: 768px) {
+  .art-index {
+    padding: 12px 0;
+  }
+
+  .art-index ul {
+    gap: 15px;
+  }
+
+  .art-index a {
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+  }
+}
+
+@media (max-width: 480px) {
+  .art-index ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos filas en móviles muy pequeños */
+    text-align: center;
+    gap: 10px 5px;
+  }
+}
+
+/* --- Animación de Scroll Suave --- */
+html {
+  scroll-behavior: smooth;
 }
 
 /* =========================
@@ -712,6 +812,79 @@
   }
 }
 /****************************************************/
+/* =========================
+   OBRA 10 - SOLUCIÓN SIN CORTES
+========================= */
+.collage-section {
+  margin-top: 30px;
+  background: #000;
+  padding: 20px 0;
+}
+
+.collage-inner {
+  width: 97%;
+  max-width: 1200px; /* Tamaño contenido para que se vean pequeñas */
+  margin: 0 auto;
+}
+
+.collage-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start; /* Alinea al borde superior sin estirar */
+}
+
+.collage-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Columna izquierda (Cuadradas) ocupa un poco menos de ancho */
+.col-left {
+  flex: 0.8;
+}
+
+/* Columna derecha (Panorámicas) ocupa más ancho */
+.col-right {
+  flex: 1.2;
+}
+
+.collage-item img {
+  width: 100%;
+  height: auto; /* Mantiene la proporción original */
+  display: block;
+  object-fit: contain; /* Garantiza que no se pierda ni un píxel del arte */
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+.collage-item img:hover {
+  filter: grayscale(0%);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 900px) {
+  .collage-section {
+    padding: 10px 0;
+  }
+  .collage-columns {
+    flex-direction: column; /* Se apilan en móvil */
+    width: 100%;
+  }
+
+  .col-left,
+  .col-right {
+    flex: 1;
+    width: 100%;
+  }
+
+  .collage-item img {
+    max-height: 500px; /* Evita que las verticales sean infinitas en móvil */
+    object-fit: contain;
+  }
+}
 
 /* =========================
    FOOTER

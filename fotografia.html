@@ -40,8 +40,18 @@
     </header>
 
     <main class="container">
+      <nav class="art-index">
+        <div class="container">
+          <ul>
+            <li><a href="#la-dicha">La Dicha</a></li>
+            <li><a href="#teoria-murphy">Teoría de Murphy</a></li>
+            <li><a href="#abyeccion">Santísima Piel</a></li>
+            <li><a href="#retratos">Retratos</a></li>
+          </ul>
+        </div>
+      </nav>
       <!-- SERIE FOTOGRÁFICA LA DICHA -->
-      <section class="series-exhibit reveal">
+      <section id="la-dicha" class="series-exhibit reveal">
         <div class="series-header">
           <h2 class="series-title">LA DICHA</h2>
           <span class="series-year">2021</span>
@@ -61,7 +71,7 @@
       </section>
 
       <!-- OBRA 1 -->
-      <section class="art-section reveal">
+      <section class="art-section">
         <div class="art-layout">
           <div class="art-image">
             <img src="assets/fotografia/dicha5.png" alt="" />
@@ -80,7 +90,7 @@
       </section>
 
       <!-- OBRA 2 -->
-      <section class="art-section reveal">
+      <section class="art-section">
         <div class="art-layout reverse">
           <div class="art-image">
             <img src="assets/fotografia/dicha6.png" alt="" />
@@ -97,7 +107,7 @@
       </section>
 
       <!-- OBRA 3 -->
-      <section class="series-murphy reveal">
+      <section id="teoria-murphy" class="series-murphy reveal">
         <div class="murphy-inner">
           <div class="murphy-image">
             <img src="assets/fotografia/tm-1.png" />
@@ -111,7 +121,7 @@
       </section>
 
       <!-- OBRA 4 -->
-      <section class="series-exhibit-2 reveal">
+      <section class="series-exhibit-2">
         <div class="series-grid">
           <img src="assets/fotografia/tm-6.png" alt="" />
           <img src="assets/fotografia/tm-7.png" alt="" />
@@ -121,7 +131,7 @@
       </section>
 
       <!-- OBRA 5 -->
-      <section class="art-section reveal">
+      <section class="art-section">
         <div class="art-layout">
           <div class="art-image">
             <img src="assets/fotografia/tm-3.png" alt="" />
@@ -160,7 +170,7 @@
 
       <!-- SERIE SANTÍSIMA PIEL DE LA ABYECCIÓN -->
       <!-- OBRA 7 -->
-      <section class="abyeccion-section">
+      <section id="abyeccion" class="abyeccion-section reveal">
         <div class="abyeccion-inner">
           <div class="abyeccion-image">
             <img
@@ -209,7 +219,7 @@
       </section>
 
       <!-- OBRA 9 -->
-      <section class="series-exhibit-2 reveal">
+      <section class="series-exhibit-2">
         <div class="series-grid-3">
           <img src="assets/fotografia/spa-9.png" alt="" />
           <img src="assets/fotografia/spa-10.png" alt="" />
@@ -218,7 +228,7 @@
       </section>
 
       <!-- RETRATOS SECTION -->
-      <section class="retratos-section">
+      <section id="retratos" class="retratos-section reveal">
         <div class="retratos-inner">
           <div class="retratos-columns">
             <div class="retratos-col">
@@ -262,6 +272,30 @@
           </div>
         </div>
       </section>
+
+      <section class="collage-section">
+        <div class="collage-inner">
+          <div class="collage-columns">
+            <div class="collage-col col-left">
+              <div class="collage-item">
+                <img src="assets/fotografia/spa-12.png" alt="Obra 12" />
+              </div>
+              <div class="collage-item">
+                <img src="assets/fotografia/spa-13.png" alt="Obra 14" />
+              </div>
+            </div>
+
+            <div class="collage-col col-right">
+              <div class="collage-item">
+                <img src="assets/fotografia/spa-14.png" alt="Obra 13" />
+              </div>
+              <div class="collage-item">
+                <img src="assets/fotografia/spa-15.png" alt="Obra 15" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="art-footer">
@@ -284,5 +318,6 @@
         .querySelectorAll(".reveal")
         .forEach((el) => observer.observe(el));
     </script>
+    <script type="module" src="navigation.js"></script>
   </body>
 </html>
