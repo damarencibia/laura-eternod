@@ -147,6 +147,142 @@
     padding: 10px; /* Espacio interno de seguridad */
   }
 }
+/* =========================
+   OBRA 4 - SECCIÓN DIVIDIDA
+========================= */
+.split-section {
+  position: relative;
+  padding: 100px 0 160px;
+  overflow: hidden;
+}
+
+/* Fondo mitad negro / mitad blanco */
+.split-background {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #0e0e0e 50%, #ffffff 50%);
+  z-index: 0;
+}
+
+/* Contenido encima del fondo */
+.split-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+/* Imagen flotante */
+.split-image {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 80px;
+}
+
+.split-image img {
+  width: 100%;
+  max-width: 1000px;
+  filter: grayscale(15%);
+  transition: filter 0.6s ease;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
+}
+
+.split-image img:hover {
+  filter: grayscale(0%);
+}
+
+/* Texto en zona blanca */
+.split-text {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #111;
+}
+
+/* Título oscuro */
+.dark-title {
+  color: #111;
+}
+
+/* Caption oscuro */
+.dark-caption {
+  color: #444;
+}
+
+@media (max-width: 768px) {
+  .split-section {
+    display: none;
+  }
+
+  .split-image img {
+    width: 95%;
+    box-shadow: none;
+    filter: none;
+    margin-top: 60vh;
+  }
+
+  .split-text {
+    padding: 0 20px;
+    margin-top: 30vh;
+  }
+}
+
+/* =========================
+   OBRA 4 - MOBILE
+========================= */
+
+.art-section-mobile {
+  margin-bottom: 160px;
+  background-color: #0b0b0b;
+  padding: 0px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
+  background: linear-gradient(to bottom, #0e0e0e 30%, #ffffff 30%);
+}
+
+.art-image-mobile img {
+  margin-top: 70px;
+  width: 100%;
+  display: block;
+  filter: grayscale(20%);
+  transition: filter 0.6s ease;
+}
+
+.art-image-mobile img:hover {
+  filter: grayscale(0%);
+}
+
+.serif-title-mobile {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.serif-title-dark-mobile {
+  font-family: "Inter", sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: #171717;
+}
+
+.art-content-mobile p {
+  line-height: 1.8;
+  color: #d0d0d0;
+}
+.art-content-dark-mobile p {
+  line-height: 1.8;
+  color: #171717;
+}
+
+.art-caption-mobile {
+  margin-top: 30px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ff7a00;
+}
+
+@media (min-width: 900px) {
+  .art-section-mobile {
+    display: none;
+  }
+}
 
 /****************************************************/
 /* =========================
@@ -305,16 +441,6 @@
   padding-bottom: 20px;
 }
 
-.murphy-inner-2 {
-  width: 100%;
-  max-width: 1800px; /* más ancho */
-  margin: 0 auto;
-  margin-bottom: 30px;
-  background: linear-gradient(to bottom, #000 50%, #000 50%);
-
-  padding-bottom: 20px;
-}
-
 /* Imagen dentro del flujo */
 .murphy-image {
   width: 98%;
@@ -346,7 +472,6 @@
   letter-spacing: 1px;
   color: #111;
   margin: 0;
-  margin-top: 10px;
 }
 
 .murphy-year {
@@ -392,136 +517,7 @@
     margin: 0;
   }
 }
-/****************************************************/
 
-/****************************************************/
-/* SECCION TRIPARTITA */
-.murphy-award {
-  margin-top: 30px;
-  background: #000;
-  padding: 20px 0;
-}
-
-.award-inner {
-  width: 98%;
-  max-width: 1800px;
-  margin: 0 auto;
-
-  display: grid;
-  grid-template-columns: 1fr 0.8fr 1fr;
-  align-items: center;
-  gap: 80px;
-}
-
-.award-image img {
-  width: 100%;
-  height: 750px;
-  object-fit: cover;
-  display: block;
-  filter: grayscale(100%);
-}
-
-.award-text {
-  color: #fff;
-  text-align: center;
-  font-size: 1.3rem;
-  line-height: 1.6;
-  letter-spacing: 0.5px;
-}
-
-@media (max-width: 900px) {
-  .murphy-award {
-    margin-top: 30px;
-    background: #000;
-    padding: 5px 0 5px;
-  }
-  .award-inner {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .award-image img {
-    height: auto;
-    aspect-ratio: 4/5;
-  }
-
-  .award-text {
-    font-size: 1rem;
-    padding: 0 20px;
-  }
-
-  .murphy-award {
-    padding: 1d0px 0;
-  }
-}
-/****************************************************/
-
-/****************************************************/
-/* SERIE SANTÍSIMA PIEL DE LA ABYECCIÓN */
-/* OBRA 7 */
-.abyeccion-section {
-  margin-top: 30px;
-  background: #141c1f; /* tono oscuro ligeramente verdoso */
-  padding: 20px 0px 20px;
-}
-
-.abyeccion-inner {
-  width: 96%;
-  max-width: 1700px;
-  margin: 0 auto;
-}
-
-.abyeccion-image img {
-  width: 100%;
-  height: 650px;
-  object-fit: cover;
-  display: block;
-}
-
-.abyeccion-text {
-  margin-top: 40px;
-  color: #d9d9d9;
-}
-
-.abyeccion-title {
-  font-size: 3rem;
-  font-weight: 300;
-  letter-spacing: 2px;
-  margin: 0 0 20px 0;
-}
-
-.abyeccion-description {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  color: #bfbfbf;
-  margin: 0;
-}
-
-@media (max-width: 900px) {
-  .abyeccion-section {
-    padding: 10px 0 20px;
-  }
-
-  .abyeccion-image img {
-    height: auto;
-    aspect-ratio: 16/9;
-  }
-
-  .abyeccion-title {
-    font-size: 1.5rem;
-    letter-spacing: 1px;
-  }
-
-  .abyeccion-description {
-    font-size: 0.95rem;
-  }
-
-  .abyeccion-text {
-    margin-top: 25px;
-  }
-
-  /* OBRA 8 */
-}
 /****************************************************/
 
 /* =========================
