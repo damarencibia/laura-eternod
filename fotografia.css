@@ -67,101 +67,150 @@
 }
 
 /* =========================
-   Navegación / Índice Sticky
+   NAV STICKY BASE
 ========================= */
+
 .art-index {
-  position: -webkit-sticky; /* Soporte Safari */
   position: sticky;
   top: 0;
   z-index: 1000;
-  background: rgba(0, 0, 0, 0.85); /* Fondo negro traslúcido */
-  backdrop-filter: blur(8px); /* Efecto desenfoque moderno */
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid #ff7b0089;
   padding: 18px 0;
-  margin-bottom: 20px;
-  transition: all 0.3s ease;
 }
 
-.art-index ul {
+/* Wrapper */
+.nav-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+.nav-scroll {
   list-style: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(15px, 4vw, 40px); /* Espaciado fluido */
+  gap: clamp(15px, 4vw, 40px);
   margin: 0;
   padding: 0;
+  width: 100%;
 }
 
 .art-index a {
   text-decoration: none;
-  color: #666; /* Color apagado por defecto */
+  color: #666;
   font-family: "Inter", sans-serif;
   font-size: 0.85rem;
   font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  transition:
-    color 0.3s ease,
-    transform 0.3s ease;
+  transition: all 0.3s ease;
   position: relative;
 }
 
-/* Hover */
 .art-index a:hover {
   color: #bbb;
 }
 
-/* Estado Activo (Controlado por JS) */
 .art-index a.active-link {
   color: #ffffff !important;
   font-weight: 600;
 }
 
-/* Línea sutil debajo del enlace activo */
 .art-index a.active-link::after {
   content: "";
   position: absolute;
   bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 15px;
+  width: 100%;
   height: 1px;
   background-color: #fff;
-  transition: width 0.3s ease;
 }
 
-/* Evitar que el menú tape el título al saltar al ID */
+/* =========================
+   CHEVRONS (ocultos en desktop)
+========================= */
+
+.nav-chevron {
+  display: none;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .nav-wrapper {
+    position: relative;
+    overflow: hidden; /* Corta lo que sobresalga de los botones */
+  }
+
+  .art-index {
+    padding: 14px 0;
+  }
+
+  .nav-scroll {
+    overflow-x: auto;
+    display: flex; /* Asegura que sea un flexbox horizontal */
+    flex-wrap: nowrap; /* Evita que los items bajen a otra línea */
+    -webkit-overflow-scrolling: touch; /* Suavidad en iOS */
+    justify-content: flex-start;
+    padding: 0 50px; /* Espacio para que los botones no tapen el primer/último texto */
+    scroll-behavior: smooth;
+  }
+
+  .nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .art-index a {
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .nav-chevron {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .nav-chevron.left {
+    left: 0;
+  }
+
+  .nav-chevron.right {
+    right: 0;
+  }
+
+  .nav-chevron:hover {
+    opacity: 0.7;
+  }
+}
+
+/* Scroll offset para anclas */
 section[id] {
   scroll-margin-top: 100px;
 }
 
-/* --- Ajustes Responsive --- */
-@media (max-width: 768px) {
-  .art-index {
-    padding: 12px 0;
-  }
-
-  .art-index ul {
-    gap: 15px;
-  }
-
-  .art-index a {
-    font-size: 0.7rem;
-    letter-spacing: 1px;
-  }
-}
-
-@media (max-width: 480px) {
-  .art-index ul {
-    display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos filas en móviles muy pequeños */
-    text-align: center;
-    gap: 10px 5px;
-  }
-}
-
-/* --- Animación de Scroll Suave --- */
 html {
   scroll-behavior: smooth;
 }
