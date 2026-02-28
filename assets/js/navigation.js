@@ -1,9 +1,9 @@
 /**
  * navigation.js
- * Manejo de navegación interna, active link con auto-scroll y carousel.
+ * Manejo de navegación interna, active link con auto-scroll y carousel unificado.
  */
 
-export function initNavigation() {
+function initNavigation() {
     const sections = document.querySelectorAll("section[id]");
     const navLinks = document.querySelectorAll(".art-index a");
     const scrollContainer = document.querySelector(".nav-scroll");
@@ -15,7 +15,7 @@ export function initNavigation() {
     =============================== */
     const handleScroll = () => {
         let current = "";
-        const scrollPosition = window.scrollY + 160; // Offset para detección temprana
+        const scrollPosition = window.scrollY + 160;
 
         sections.forEach((section) => {
             const sectionTop = section.offsetTop;
@@ -33,11 +33,11 @@ export function initNavigation() {
                 link.classList.add("active-link");
 
                 // AUTO-SCROLL DEL MENÚ:
-                // Solo si el contenedor existe y estamos en vista móvil/tablet
-                if (scrollContainer && window.innerWidth <= 768) {
+                // Eliminamos el "window.innerWidth <= 768" para que funcione en DESKTOP también
+                if (scrollContainer) {
                     link.scrollIntoView({
                         behavior: "smooth",
-                        inline: "center", // Centra el link activo en el navbar
+                        inline: "center", // Mantiene el link centrado en la barra
                         block: "nearest"
                     });
                 }
@@ -64,16 +64,18 @@ export function initNavigation() {
     document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
 
     /* ===============================
-       3. NAV CAROUSEL MÓVIL (MANUAL)
+       3. NAV CAROUSEL (MANUAL) - UNIFICADO
     =============================== */
     if (scrollContainer && btnLeft && btnRight) {
+        
         const moveScroll = (direction) => {
-            const step = 150;
-            if (direction === 'left') {
-                scrollContainer.scrollLeft -= step;
-            } else {
-                scrollContainer.scrollLeft += step;
-            }
+            // Aumentamos el step para desktop (opcional) o lo dejamos dinámico
+            const step = direction === 'left' ? -250 : 250;
+            
+            scrollContainer.scrollBy({
+                left: step,
+                behavior: 'smooth'
+            });
         };
 
         btnLeft.addEventListener("click", (e) => {
@@ -85,8 +87,20 @@ export function initNavigation() {
             e.preventDefault();
             moveScroll('right');
         });
+
+        // OPCIONAL: Ocultar/Mostrar flechas según la posición del scroll
+        const toggleChevrons = () => {
+            const scrollLeft = scrollContainer.scrollLeft;
+            const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
+            
+            // Si quieres que desaparezcan cuando no hay más scroll:
+            btnLeft.style.opacity = scrollLeft <= 0 ? "0.3" : "1";
+            btnRight.style.opacity = scrollLeft >= maxScroll - 1 ? "0.3" : "1";
+        };
+
+        scrollContainer.addEventListener("scroll", toggleChevrons);
+        window.addEventListener("resize", toggleChevrons);
     }
 }
 
-/* Ejecutar al cargar */
 document.addEventListener("DOMContentLoaded", initNavigation);

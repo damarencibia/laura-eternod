@@ -8,8 +8,8 @@
 }
 
 .container {
-  width: 90%;
-  max-width: 1200px;
+  width: 95%;
+  max-width: 1500px;
   margin: 0 auto;
 }
 
@@ -39,7 +39,7 @@
 ========================= */
 
 .art-header {
-  padding: 60px 0 120px;
+  padding: 60px 0 50px;
   text-align: center;
 }
 
@@ -67,12 +67,157 @@
 }
 
 /* =========================
+   NAV STICKY BASE
+========================= */
+
+.art-index {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-bottom: 1px solid #ff7b0089;
+  padding: 18px 0;
+}
+
+/* Wrapper */
+.nav-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden; /* Evita que el contenido se salga del contenedor padre */
+}
+
+/* =========================
+   ESTILO UNIFICADO (Desktop y Mobile)
+========================= */
+
+.nav-scroll {
+  list-style: none;
+  display: flex;
+  flex-wrap: nowrap; /* Fuerza una sola línea siempre */
+  gap: clamp(15px, 4vw, 40px);
+  margin: 0;
+  padding: 0 50px; /* Espacio para los botones laterales */
+  width: 100%;
+
+  /* Habilitar Scroll Horizontal */
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+
+  /* Centrado si hay pocos elementos, inicio si hay muchos */
+  justify-content: flex-start;
+}
+
+/* Ocultar barra de scroll en todos los navegadores */
+.nav-scroll::-webkit-scrollbar {
+  display: none;
+}
+.nav-scroll {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.art-index a {
+  text-decoration: none;
+  color: #666;
+  font-family: "Inter", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+  position: relative;
+  white-space: nowrap; /* Evita que el texto salte de línea */
+}
+
+.art-index a:hover {
+  color: #bbb;
+}
+
+.art-index a.active-link {
+  color: #ffffff !important;
+  font-weight: 600;
+}
+
+.art-index a.active-link::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 1px;
+  background-color: #fff;
+}
+
+/* =========================
+   CHEVRONS (Ahora visibles siempre)
+========================= */
+
+.nav-chevron {
+  display: flex; /* Cambiado de 'none' a 'flex' */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0);
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  width: 40px; /* Un poco más grandes para desktop */
+  height: 100%; /* Cubre el alto para mejor click */
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.3s;
+}
+
+.nav-chevron.left {
+  left: 0;
+}
+.nav-chevron.right {
+  right: 0;
+}
+
+.nav-chevron:hover {
+  background: rgba(0, 0, 0, 0);
+}
+
+/* =========================
+   AJUSTES PEQUEÑOS PARA MÓVIL
+========================= */
+
+@media (max-width: 768px) {
+  .art-index {
+    padding: 14px 0;
+  }
+  .art-index a {
+    font-size: 0.75rem;
+  }
+  .nav-chevron {
+    width: 30px;
+  }
+}
+
+/* Scroll offset para anclas */
+section[id] {
+  scroll-margin-top: 100px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* =========================
    SECCIONES
 ========================= */
 .art-section {
   margin-bottom: 30px;
   background-color: #0b0b0b;
-  padding: 20px 20px 20px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
+  padding: 0px 0px 0px 0px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
 }
 
 .art-layout {
@@ -87,7 +232,8 @@
 }
 
 .art-layout.reverse .art-content {
-  direction: ltr;
+  margin: 0 auto;
+  direction: ltr; /* Asegura que el texto no se alinee a la derecha internamente */
 }
 
 .art-image img {
@@ -115,16 +261,22 @@
 }
 
 .art-content {
-  text-align: center; /* Centra todos los h2, p y captions dentro */
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100%;
+
+  /* NUEVOS AJUSTES */
+  padding: 60px; /* Espacio interno de seguridad */
+  max-width: 1000px; /*Evita que el texto sea demasiado ancho y difícil de leer
+  margin: 0 auto; /* Centra el bloque de texto dentro de su columna del grid */
 }
 
 .art-content-dark p {
   line-height: 1.8;
   color: #171717;
-  
 }
 
 .art-caption {
@@ -135,142 +287,650 @@
   color: #ff7a00;
 }
 
+@media (max-width: 768px) {
+  .art-content {
+    padding: 10px; /* Espacio interno de seguridad */
+  }
+}
+
+/****************************************************/
 /* =========================
-   OBRA 4 - SECCIÓN DIVIDIDA
+   SERIE EXPOSICIÓN
 ========================= */
-.split-section {
-  position: relative;
-  padding: 100px 0 160px;
-  overflow: hidden;
+
+.series-exhibit {
+  background-color: #000;
+  padding: 5px 0px 50px 0px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.series-exhibit-2 {
+  margin-top: 30px;
+  background-color: #000;
+  padding: 10px 0px 10px 0px;
+  text-align: center;
+  margin-bottom: 30px;
 }
 
-/* Fondo mitad negro / mitad blanco */
-.split-background {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, #0e0e0e 50%, #ffffff 50%);
-  z-index: 0;
+/* Header */
+.series-header {
+  margin-bottom: 20px;
 }
 
-/* Contenido encima del fondo */
-.split-content {
-  position: relative;
-  z-index: 1;
+.series-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(1.5rem, 7vw, 1rem);
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.series-year {
+  display: block;
+  margin-top: 5px;
+  font-size: 1rem;
+  color: #aaa;
+}
+
+/* Grid imágenes */
+.series-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
+  width: 98%;
+  max-width: 1800px; /* MÁS ancho */
+  margin: 0 auto;
+}
+
+.series-grid img {
+  width: 100%;
+  height: auto; /* ← clave */
+  object-fit: unset;
+  display: block;
+  filter: grayscale(100%);
+  transition:
+    filter 0.6s ease,
+    transform 0.6s ease;
+}
+
+/* OBRA 9 */
+/* Grid imágenes */
+.series-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+
+  width: 98%;
+  max-width: 1800px; /* MÁS ancho */
+  margin: 0 auto;
+}
+
+.series-grid-3 img {
+  width: 100%;
+  height: auto; /* ← clave */
+  object-fit: unset;
+  display: block;
+  transition:
+    filter 0.6s ease,
+    transform 0.6s ease;
+}
+/* =========================
+   RESPONSIVE OBRA 9
+========================= */
+@media (max-width: 900px) {
+  .series-exhibit-2 {
+    margin-top: 30px;
+    background-color: #000;
+    padding: 10px 0px 10px 0px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .series-grid-3 {
+    /* Pasamos de 3 columnas a 1 para dar aire a cada fotografía */
+    grid-template-columns: 1fr;
+    gap: 20px; /* Aumentamos un poco el espacio vertical entre obras */
+    width: 95%; /* Ajustamos ligeramente el ancho en pantallas pequeñas */
+  }
+
+  .series-grid-3 img {
+    /* Nos aseguramos de que ocupen el ancho total del dispositivo */
+    width: 100%;
+    height: auto;
+  }
+}
+
+/* Opcional: Para tablets (entre 900px y 600px) 
+   podrías querer 2 columnas y que una quede abajo sola */
+@media (max-width: 768px) and (min-width: 501px) {
+  .series-grid-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Caption */
+.series-caption {
+  margin-top: 40px;
+  font-size: 1rem;
+  color: #ccc;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================
+   SERIE EXPOSICIÓN RESPONSIVE
+========================= */
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .series-exhibit {
+    padding: 100px 0;
+  }
+
+  .series-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    width: 90%;
+  }
+
+  .series-grid img {
+    height: 420px;
+  }
+
+  .series-title {
+    font-size: 3.5rem;
+  }
+
+  .series-year {
+    font-size: 1.5rem;
+  }
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .series-exhibit {
+    padding: 80px 0;
+  }
+
+  .series-header {
+    margin-bottom: 60px;
+  }
+
+  .series-title {
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+  }
+
+  .series-year {
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
+
+  .series-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    width: 92%;
+  }
+
+  .series-grid img {
+    height: auto; /* MUY IMPORTANTE */
+    max-height: none;
+  }
+
+  .series-caption {
+    margin-top: 60px;
+    font-size: 0.9rem;
+    padding: 0 20px;
+  }
+}
+/****************************************************/
+
+/* =========================
+   SERIE - TEORÍA DE MURPHY
+========================= */
+.series-murphy {
+  margin-top: 30px;
+  padding: 0;
+}
+
+/* Fondo dividido real */
+.murphy-inner {
+  width: 100%;
+  max-width: 1800px; /* más ancho */
+  margin: 0 auto;
+
+  background: linear-gradient(to bottom, #000 50%, #e9e9e9 50%);
+
+  padding-bottom: 20px;
+}
+
+.murphy-inner-2 {
+  width: 100%;
+  max-width: 1800px; /* más ancho */
+  margin: 0 auto;
+  margin-bottom: 30px;
+  background: linear-gradient(to bottom, #000 50%, #000 50%);
+
+  padding-bottom: 10px;
+}
+
+/* Imagen dentro del flujo */
+.murphy-image {
+  width: 98%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding-top: 10px;
+}
+
+.murphy-image img {
+  width: 100%;
+  height: 650px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Texto debajo */
+.murphy-text {
+  width: 90%;
+  max-width: 1600px;
+  margin: -1px auto 0; /* ← clave: invade el blanco */
+  /* padding-top: 1px; */
+}
+
+.murphy-title {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(3rem, 6vw, 3rem);
+  font-weight: 300;
+  letter-spacing: 1px;
+  color: #111;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.murphy-year {
+  display: block;
+  /* margin-top: 10px; */
+  font-size: 1.5rem;
+  color: #555;
+}
+
+@media (max-width: 900px) {
+  .murphy-inner {
+    background: #000;
+    padding-bottom: 0;
+  }
+
+  .murphy-image {
+    width: 90%;
+    padding-top: 1;
+  }
+
+  .murphy-image img {
+    height: auto;
+    aspect-ratio: 16/9;
+  }
+
+  /* BLOQUE BLANCO */
+  .murphy-text {
+    background: #e9e9e9;
+    width: 100%;
+    margin: 0; /* corregido */
+    padding: 0px 0px 20px; /* arriba | lados | abajo */
+  }
+
+  .murphy-title {
+    font-size: 1.6rem;
+    letter-spacing: 1px;
+    margin: 0 0 8px 0; /* separación controlada con el año */
+    margin-left: 5px;
+  }
+
+  .murphy-year {
+    font-size: 1rem;
+    margin: 0;
+    margin-left: 5px;
+  }
+}
+/****************************************************/
+
+/****************************************************/
+/* SECCION TRIPARTITA */
+.murphy-award {
+  margin-top: 30px;
+  background: #000;
+  padding: 20px 0;
+}
+
+.award-inner {
+  width: 98%;
+  max-width: 1800px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1fr 0.8fr 1fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.award-image img {
+  width: 100%;
+  height: 750px;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(100%);
+}
+
+.award-text {
+  color: #fff;
+  text-align: center;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 900px) {
+  .murphy-award {
+    margin-top: 30px;
+    background: #000;
+    padding: 5px 0 5px;
+  }
+  .award-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .award-image img {
+    height: auto;
+    aspect-ratio: 4/5;
+  }
+
+  .award-text {
+    font-size: 1rem;
+    padding: 0 20px;
+  }
+
+  .murphy-award {
+    padding: 1d0px 0;
+  }
+}
+/****************************************************/
+
+/****************************************************/
+/* SERIE SANTÍSIMA PIEL DE LA ABYECCIÓN */
+/* OBRA 7 */
+.abyeccion-section {
+  margin-top: 30px;
+  background: #141c1f; /* tono oscuro ligeramente verdoso */
+  padding: 12px 0px 12px;
+}
+
+.abyeccion-inner {
+  width: 98%;
+  max-width: 1700px;
+  margin: 0 auto;
+}
+
+.abyeccion-image img {
+  width: 100%;
+  height: auto; /* ← clave */
+  display: block;
+}
+
+.abyeccion-text {
+  margin-top: 40px;
+  color: #d9d9d9;
+}
+
+.abyeccion-title {
+  font-size: 3rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin: 0 0 20px 0;
+}
+
+.abyeccion-description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #bfbfbf;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .abyeccion-section {
+    padding: 10px 0 20px;
+  }
+
+  .abyeccion-image img {
+    height: auto;
+  }
+
+  .abyeccion-title {
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+  }
+
+  .abyeccion-description {
+    font-size: 0.95rem;
+  }
+
+  .abyeccion-text {
+    margin-top: 25px;
+    margin-left: 2px;
+  }
+}
+
+/* =========================
+   OBRA 8 - CORREGIDA (PROPORCIONAL)
+========================= */
+.editorial-grid {
+  margin-top: 30px;
+  background: #0f1416;
+  padding: 40px 20px;
+}
+
+.grid-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  /* 3 columnas fijas */
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 15px;
+  /* IMPORTANTE: align-items al inicio para que no estire las fotos */
+  align-items: start;
+}
+
+/* Imagen izquierda: Ocupa 2 filas pero sin forzar altura */
+.item-left {
+  grid-row: span 2;
+}
+
+.item img {
+  width: 100%;
+  /* Cambiamos height 100% por auto para que se vea COMPLETA */
+  height: auto;
+  display: block;
+  object-fit: contain; /* Asegura que se vea todo el contenido artístico */
+}
+
+/* =========================
+   RESPONSIVE OBRA 8
+========================= */
+@media (max-width: 900px) {
+  .grid-container {
+    /* En tablets pasamos a 2 columnas */
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .item-left {
+    /* En móvil, la foto principal debe ir arriba y ocupar todo el ancho */
+    grid-row: span 1;
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 500px) {
+  .grid-container {
+    /* En móviles pequeños, una sola columna */
+    grid-template-columns: 1fr;
+  }
+
+  .item-left {
+    grid-column: span 1;
+  }
+
+  .editorial-grid {
+    padding: 20px 10px;
+  }
+}
+/****************************************************/
+
+/****************************************************/
+/* =========================
+   SECCIÓN RETRATOS (COLLAGE)
+========================= */
+.retratos-section {
+  background: #e9e9e9;
+  padding: 50px 0;
+  width: 100%;
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.retratos-inner {
+  width: 95%;
+  /* Esto controla qué tan pequeño es el collage en pantalla */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.retratos-columns {
+  display: flex;
+  gap: 15px;
+  align-items: flex-start; /* Evita que las columnas se estiren entre sí */
+}
+
+.retratos-col {
+  flex: 1; /* Todas las columnas miden lo mismo de ancho */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.retrato-item img {
+  width: 100%;
+  height: auto; /* LA CLAVE: La imagen mantiene su proporción original */
+  display: block;
+  /* object-fit: cover; Opcional: solo si quieres que todas las cajas midan igual, 
+     pero si no quieres que se corten, déjalo en auto */
+}
+
+/* Ajustes específicos para igualar tu imagen de referencia */
+
+.retrato-title-container {
+  padding: 20px 0;
   text-align: center;
 }
 
-/* Imagen flotante */
-.split-image {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 80px;
+.retrato-grid-title {
+  font-family: "Playfair Display", serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  line-height: 1.2;
+  letter-spacing: 1px;
+  color: #000;
 }
 
-.split-image img {
+/* Hacemos que la foto del anciano sea un poco más ancha si es necesario */
+.span-2-cols {
   width: 100%;
-  max-width: 1000px;
-  filter: grayscale(15%);
-  transition: filter 0.6s ease;
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.4);
 }
 
-.split-image img:hover {
-  filter: grayscale(0%);
+/* Responsivo */
+@media (max-width: 800px) {
+  .retratos-columns {
+    flex-wrap: wrap;
+  }
+  .retratos-col {
+    flex: 1 1 45%; /* Dos columnas en tablet/móvil */
+  }
+}
+/****************************************************/
+/* =========================
+   OBRA 10 - SOLUCIÓN SIN CORTES
+========================= */
+.collage-section {
+  margin-top: 30px;
+  background: #000;
+  padding: 20px 0;
 }
 
-/* Texto en zona blanca */
-.split-text {
-  max-width: 700px;
+.collage-inner {
+  width: 97%;
+  max-width: 1200px; /* Tamaño contenido para que se vean pequeñas */
   margin: 0 auto;
-  color: #111;
 }
 
-/* Título oscuro */
-.dark-title {
-  color: #111;
+.collage-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start; /* Alinea al borde superior sin estirar */
 }
 
-/* Caption oscuro */
-.dark-caption {
-  color: #444;
+.collage-col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-@media (max-width: 768px) {
-  .split-section {
-    display: none;
-  }
+/* Columna izquierda (Cuadradas) ocupa un poco menos de ancho */
+.col-left {
+  flex: 0.8;
+}
 
-  .split-image img {
-    width: 95%;
-    box-shadow: none;
-    filter: none;
-    margin-top: 60vh;
-  }
+/* Columna derecha (Panorámicas) ocupa más ancho */
+.col-right {
+  flex: 1.2;
+}
 
-  .split-text {
-    padding: 0 20px;
-    margin-top: 30vh;
-  }
+.collage-item img {
+  width: 100%;
+  height: auto; /* Mantiene la proporción original */
+  display: block;
+  object-fit: contain; /* Garantiza que no se pierda ni un píxel del arte */
+  filter: grayscale(100%);
+  transition: filter 0.5s ease;
+}
+
+.collage-item img:hover {
+  filter: grayscale(0%);
 }
 
 /* =========================
-   OBRA 4 - MOBILE
+   RESPONSIVE
 ========================= */
+@media (max-width: 900px) {
+  .collage-section {
+    padding: 10px 0;
+  }
+  .collage-columns {
+    flex-direction: column; /* Se apilan en móvil */
+    width: 100%;
+  }
 
-.art-section-mobile {
-  margin-bottom: 160px;
-  background-color: #0b0b0b;
-  padding: 0px 20px 30px 20px; /* Arriba 0, Derecha 0, Abajo 20px, Izquierda 0 */
-  background: linear-gradient(to bottom, #0e0e0e 30%, #ffffff 30%);
-}
+  .col-left,
+  .col-right {
+    flex: 1;
+    width: 100%;
+  }
 
-.art-image-mobile img {
-  margin-top: 70px;
-  width: 100%;
-  display: block;
-  filter: grayscale(20%);
-  transition: filter 0.6s ease;
-}
-
-.art-image-mobile img:hover {
-  filter: grayscale(0%);
-}
-
-.serif-title-mobile {
-  font-family: "Inter", sans-serif;
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-}
-
-.serif-title-dark-mobile {
-  font-family: "Inter", sans-serif;
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  color: #171717;
-}
-
-.art-content-mobile p {
-  line-height: 1.8;
-  color: #d0d0d0;
-}
-.art-content-dark-mobile p {
-  line-height: 1.8;
-  color: #171717;
-}
-
-.art-caption-mobile {
-  margin-top: 30px;
-  font-size: 0.75rem;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: #ff7a00;
-}
-
-@media (min-width: 900px) {
-  .art-section-mobile {
-    display: none;
+  .collage-item img {
+    max-height: 500px; /* Evita que las verticales sean infinitas en móvil */
+    object-fit: contain;
   }
 }
+
 /* =========================
    FOOTER
 ========================= */
