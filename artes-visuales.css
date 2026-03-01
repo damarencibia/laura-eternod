@@ -8,7 +8,7 @@
 }
 
 .container {
-  width: 95%;
+  width: 85%;
   max-width: 1500px;
   margin: 0 auto;
 }
@@ -237,7 +237,7 @@ html {
 }
 
 .art-image img {
-  width: 100%;
+  /* width: 100%; */
   display: block;
   filter: grayscale(20%);
   transition: filter 0.6s ease;
@@ -300,16 +300,9 @@ html {
 
 .series-exhibit {
   background-color: #000;
-  padding: 5px 0px 50px 0px;
+  padding: 15px 0px 1px 0px;
   text-align: center;
-  margin-bottom: 30px;
-}
-.series-exhibit-2 {
-  margin-top: 30px;
-  background-color: #000;
-  padding: 10px 0px 10px 0px;
-  text-align: center;
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 }
 
 /* Header */
@@ -335,7 +328,7 @@ html {
 /* Grid imágenes */
 .series-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 
   width: 98%;
@@ -348,7 +341,6 @@ html {
   height: auto; /* ← clave */
   object-fit: unset;
   display: block;
-  filter: grayscale(100%);
   transition:
     filter 0.6s ease,
     transform 0.6s ease;
@@ -661,8 +653,9 @@ html {
 /* OBRA 7 */
 .abyeccion-section {
   margin-top: 30px;
-  background: #141c1f; /* tono oscuro ligeramente verdoso */
+  background: #0b0b0b; /* tono oscuro ligeramente verdoso */
   padding: 12px 0px 12px;
+  margin-bottom: 30px;
 }
 
 .abyeccion-inner {
@@ -680,6 +673,7 @@ html {
 .abyeccion-text {
   margin-top: 40px;
   color: #d9d9d9;
+  text-align: center;
 }
 
 .abyeccion-title {
