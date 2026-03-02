@@ -10,6 +10,9 @@
   --border-orange-circle: #dc4d0be8;
   --border-orange-arrow: #dc4d0b;
   --accent: #cfcfcf;
+  --profile-accent: #e67e22; /* Tu naranja de acento */
+  --profile-white: #f8f8f8;
+  --profile-gap: 60px;
 }
 
 /* RESET Y BASE */
@@ -82,967 +85,982 @@ nav a:hover {
   color: var(--off-white);
 }
 
-/* HERO — portada revista */
-.hero {
-  height: 110vh; /* Un poco más alto que la pantalla para lucir la curva */
-  position: relative; /* Referencia para los elementos internos absolutos */
-  overflow: hidden; /* Evita que el SVG ancho genere scroll horizontal */
-  background: url("assets/hero.jpg") center/cover no-repeat;
+.hero-flashback {
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* --- CAPA DEL DIVISOR (LA CURVA) --- */
-.hero-divider {
-  position: absolute; /* Se fija al fondo del hero */
-  bottom: 0; /* Pegado al límite inferior */
-  left: 0; /* Alineado a la izquierda */
-  width: 100%; /* Ocupa todo el ancho */
-  line-height: 0; /* Elimina espacios fantasma bajo el SVG */
-  transform: rotate(
-    180deg
-  ); /* Invierte el SVG para que la curva apunte hacia abajo */
-  z-index: 2; /* Por encima de la foto pero bajo el texto */
-}
-
-.hero-divider svg {
-  position: relative;
-  display: block;
-  width: calc(
-    150% + 1.3px
-  ); /* Más ancho que el 100% para evitar bordes pixelados */
-  height: 150px; /* Altura de la curva (más valor = curva más pronunciada) */
-}
-
-.hero-divider .shape-fill {
-  /* Este color DEBE ser igual al fondo de la sección que sigue (#perfil) */
-  fill: var(--black);
-}
-
-/* --- SUPERPOSICIÓN DE LA SIGUIENTE SECCIÓN --- */
-#perfil {
-  position: relative; /* Permite el uso de z-index */
-  z-index: 3; /* Capa superior al divisor curvo */
-  margin-top: -100px; /* Sube la sección para montarse físicamente sobre el Hero */
-  background: var(
-    --dark-gray
-  ); /* Asegura un fondo sólido para cubrir el Hero */
-  padding-top: 40px; /* Espacio para que el texto de perfil no toque la curva */
-}
-
-.overlay {
+/* Contenedor principal al 100% */
+.flashback-layers {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.55),
-    rgba(0, 0, 0, 0.85)
-  );
+  width: 100%;
+  height: 100%;
 }
 
-/* --- AJUSTES DE TEXTO PARA NO INTERFERIR --- */
+/* Cada imagen ocupa exactamente el 100% del Hero */
+.f-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Esto evita la expansión/deformación */
+  object-position: center;
+  /* filter: grayscale(100%) contrast(1.2) brightness(0.6); */
+  opacity: 0; /* Todas invisibles por defecto */
+  animation: flashbackFade 20s infinite; /* Animación de opacidad */
+}
+
+/* Escalonamos la animación de cada imagen (20s total / 5 imágenes = 4s cada una) */
+.f-img:nth-child(1) {
+  animation-delay: 0s;
+}
+.f-img:nth-child(2) {
+  animation-delay: 2s;
+}
+.f-img:nth-child(3) {
+  animation-delay: 4s;
+}
+.f-img:nth-child(4) {
+  animation-delay: 6s;
+}
+.f-img:nth-child(5) {
+  animation-delay: 8s;
+}
+
+/* Keyframes para el efecto Flashback */
+@keyframes flashbackFade {
+  0% {
+    opacity: 0;
+    transform: scale(1);
+  }
+  5% {
+    opacity: 1;
+  } /* Aparece rápido */
+  20% {
+    opacity: 1;
+  } /* Se mantiene */
+  25% {
+    opacity: 0;
+    transform: scale(1.05);
+  } /* Desaparece con un ligero zoom */
+  100% {
+    opacity: 0;
+  }
+}
+
+.overlay-flashback {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 2;
+}
+
+/* --- ESTILOS DEL CONTENIDO (HERO-CONTENT) --- */
+
 .hero-content {
   position: relative;
-  z-index: 4; /* La capa más alta de todas */
-  margin-bottom: 120px; /* Sube el texto para que la curva no lo pise visualmente */
+  z-index: 10;
   text-align: center;
+  max-width: 900px;
+  padding: 0 20px;
+  /* El filtro de backdrop opcional da un toque de cristal esmerilado muy suave */
+  backdrop-filter: blur(2px);
+  padding: 40px;
+  border-radius: 4px;
 }
 
-.hero h1 {
-  font-size: 3.5rem;
-  font-weight: 400;
-  color: var(--off-white);
-}
-
-.hero h2 {
-  font-size: 1.1rem;
+/* Tagline: El pequeño texto superior */
+.tagline-hero {
+  display: block;
+  font-size: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin: 15px 0 25px;
-  color: var(--light-gray);
+  letter-spacing: 6px; /* Espaciado muy abierto para elegancia */
+  color: var(--border-orange);
+  margin-bottom: 20px;
+  font-weight: 600;
+  animation: fadeInDown 1.2s ease-out;
 }
 
-.hero p {
-  font-size: 1rem;
-  color: var(--accent);
+/* Título Principal: Laura Eternod Arencibia */
+.hero-content h1 {
+  font-size: clamp(
+    2.5rem,
+    8vw,
+    5.5rem
+  ); /* Se ajusta solo según el dispositivo */
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 0.95;
+  margin: 0;
+  letter-spacing: -2px;
+  text-transform: none;
+  /* Sombra sutil para despegar el texto del fondo movido */
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-/* SECCIONES */
-.section {
-  padding: 120px 0;
+/* Subtítulo: Las especialidades */
+.hero-content h2 {
+  font-size: clamp(0.9rem, 2vw, 1.2rem);
+  font-weight: 300;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  margin: 30px 0;
+  line-height: 1.6;
 }
 
-.section.light {
-  background: var(--dark-gray);
-}
-.section.mid {
-  background: var(--mid-gray);
-}
-
-/* PERFIL — editorial serio */
-.profile-layout {
-  max-width: 1000px;
+/* La línea decorativa naranja */
+.hero-line {
+  width: 80px;
+  height: 2px;
+  background-color: var(--border-orange);
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
 
-.profile-header {
-  margin-bottom: 60px;
-}
-
-/* Texto extendido debajo del bloque imagen + texto */
-.profile-text-extended {
-  margin-top: 50px; /* Espacio claro respecto al bloque superior */
-  /* max-width: 720px; Ancho de lectura cómodo */
-}
-
-/* Ajuste de párrafos */
-.profile-text-extended p {
-  font-size: 1.05rem;
-  line-height: 1.9;
-  margin-bottom: 22px;
-  color: var(--off-white);
-}
-
-.column-container {
-  display: grid;
-  grid-template-columns: 40% 60%;
-  gap: 60px;
-  text-align: left;
-}
-
-.categoria-imagen {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.categoria-imagen img {
+/* Animación de la línea (se expande desde el centro) */
+.hero-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
   width: 100%;
-  filter: grayscale(100%) contrast(1.1);
-  border-radius: 2px;
+  height: 100%;
+  background: #fff;
+  transform: translateX(-100%);
+  animation: lineFlow 3s infinite;
 }
 
-/* --- PERFIL: CONFIGURACIÓN DE IMAGEN DE FONDO --- */
+/* --- ANIMACIONES --- */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes lineFlow {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Ajuste específico para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .hero-content {
+    padding: 20px;
+  }
+  .tagline-hero {
+    letter-spacing: 3px;
+    font-size: 0.7rem;
+  }
+  .hero-content h2 {
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+  }
+}
+
+/* BIO ********************************************************/
+/* --- CONTENEDOR PRINCIPAL --- */
+#perfil {
+  position: relative;
+  padding: 100px 0;
+  overflow: hidden;
+  background-color: #1a1a1a; /* Fondo base oscuro */
+}
+
+.profile-layout {
+  max-width: 1100px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- FONDO Y OVERLAY --- */
 .profile-bg-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 0;
-  pointer-events: none;
-
-  /* Imagen por defecto (Escritorio) */
   background-image: url("assets/profile-background.png");
   background-size: cover;
   background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.7; /* Mantiene tu estilo visual */
+  background-attachment: fixed; /* Efecto Parallax sutil */
+  opacity: 0.15; /* Muy sutil para no distraer del texto */
+  filter: grayscale(100%);
 }
 
-/* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
-@media (max-width: 768px) {
-  .profile-bg-overlay {
-    /* Aquí colocas la ruta de la nueva imagen optimizada para móvil */
-    /* background-image: url("assets/profile-background-mobile.jpg"); */
-
-    /* Ajuste opcional para móviles: puedes centrarla diferente si es necesario */
-    /* background-position: top center;  */
-    /* opacity: 0.5; Puedes ajustar la opacidad solo para móvil si prefieres */
-    display: none;
-  }
-
-  #perfil {
-    background: var(--mid-gray);
-  }
+/* --- CABECERA --- */
+.profile-header {
+  margin-bottom: 80px;
+  text-align: left;
 }
 
-/* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
-.profile-parallax-container .container {
-  position: relative; /* Eleva el contenido sobre la imagen de fondo */
-  z-index: 1; /* Asegura que el texto y carruseles estén arriba */
-}
-
-/* TIPOGRAFÍA EDITORIAL */
 .headline {
-  font-size: 2.6rem;
-  margin-bottom: 0.5rem;
-  color: var(--off-white);
+  font-size: clamp(2.5rem, 5vw, 4rem); /* Tamaño fluido */
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+  color: var(--profile-white);
+  line-height: 1;
 }
 
 .tagline {
-  font-size: 0.9rem;
-  font-weight: 400;
+  font-size: 0.85rem;
+  letter-spacing: 4px;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--border-orange);
-  margin-bottom: 2rem;
-}
-.off-white-tagline {
-  font-size: 0.9rem;
-  font-weight: 400;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--off-white);
-  margin-bottom: 2rem;
-}
-
-.copy-text p {
-  font-size: 1.05rem;
-  line-height: 1.9;
-  margin-bottom: 20px;
-  color: var(--off-white);
-}
-
-/* GRIDS — SERVICIOS */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 40px;
-  margin-top: 50px;
-}
-
-.card,
-.project {
-  background: transparent;
-  padding: 30px 0;
-  border-top: 1px solid var(--border-orange);
-}
-
-.card h4,
-.project h4 {
-  font-size: 1.1rem;
+  color: var(--profile-accent);
   margin-bottom: 10px;
-  color: var(--off-white);
-}
-
-.card p,
-.project p {
-  font-size: 0.95rem;
-}
-
-/* --- SECCIÓN SERVICIOS: CONTENEDOR DE ENCABEZADO --- */
-/* --- Inicio - CONTENEDOR PRINCIPAL DE SERVICIOS --- */
-.services-parallax-container {
-  position: relative; /* Necesario para que el fondo se posicione respecto a la sección */
-  overflow: hidden; /* Evita que la imagen de fondo sobresalga */
-  padding: 100px 0; /* Espaciado interno para dar aire al contenido */
-  background-color: var(
-    --dark-gray
-  ); /* Color de respaldo por si la imagen no carga */
-}
-
-/* --- IMAGEN DE FONDO ÚNICA --- */
-.services-bg-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-
-  /* Imagen por defecto (Escritorio) */
-  background-image: url("assets/services-background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-
-  object-fit: cover; /* La imagen cubre toda la sección sin deformarse */
-  filter: grayscale(
-    100%
-  ); /* Escala de grises y oscurecimiento (20% de brillo) */
-  opacity: 0.1; /* Transparencia para que se funda con el fondo negro */
-}
-
-.services-bg-overlay img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* La imagen cubre toda la sección sin deformarse */
-  filter: grayscale(100%) brightness(0.2); /* Escala de grises y oscurecimiento (20% de brillo) */
-  opacity: 0.8; /* Transparencia para que se funda con el fondo negro */
-}
-
-/* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
-.services-parallax-container .container {
-  position: relative; /* Eleva el contenido sobre la imagen de fondo */
-  z-index: 1; /* Asegura que el texto y carruseles estén arriba */
-}
-
-/* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
-@media (max-width: 768px) {
-  /* 1. Ocultamos el contenedor de la imagen de fondo */
-  .services-bg-overlay {
-    display: none;
-  }
-
-  /* 2. Aplicamos el color de fondo a la sección completa */
-  #servicios {
-    /* Usamos tu variable de gris oscuro o el color que prefieras */
-    background-color: var(--dark-gray);
-
-    /* Opcional: añadimos un color sólido directo si no quieres usar variables */
-    /* background-color: #171717; */
-
-    /* Aseguramos que no haya transparencias heredadas de otros estilos */
-    background-image: none !important;
-  }
-
-  /* 3. Ajuste de contraste (Opcional) */
-  /* Si el fondo es muy oscuro, aseguramos que el texto sea legible */
-  #servicios .headline,
-  #servicios {
-    color: var(--off-white);
-  }
-}
-
-/* Refuerzo para que el texto destaque sobre el fondo con textura */
-.service-text h4 {
-  color: var(--off-white);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Sombra sutil para legibilidad */
-}
-
-.service-text p {
-  color: #ccc; /* Un gris un poco más claro para compensar el fondo oscuro */
-}
-/* Fin - CONTENEDOR PRINCIPAL DE SERVICIOS */
-
-.services-header .headline {
-  margin-bottom: 10px; /* Espacio bajo el título principal "Especialidades" */
-}
-
-.services-header .tagline {
-  color: var(
-    --border-orange
-  ); /* Usa el tono sepia de tu paleta para resaltar */
-  font-weight: 500; /* Peso medio para elegancia editorial */
-  margin-bottom: 30px; /* Separación con el párrafo introductorio */
-  text-transform: uppercase; /* Mayúsculas para estilo de etiqueta de archivo */
-  letter-spacing: 2px; /* Aire entre letras para mayor legibilidad */
-}
-
-.services-intro {
-  max-width: 600px; /* Limita el ancho para que las líneas no sean demasiado largas */
-  margin: 0 auto; /* Centra el bloque de texto horizontalmente */
-}
-
-.services-intro p {
-  font-size: 1.1rem; /* Tamaño ligeramente mayor al texto base */
-  line-height: 1.8; /* Espaciado vertical generoso para lectura cómoda */
-  color: var(--light-gray); /* Gris suave para no competir con los títulos */
-  font-style: italic; /* Estilo itálico para diferenciar la intro del contenido */
-}
-
-/* --- ESTRUCTURA DE LA LÍNEA DE TIEMPO (TIMELINE) --- */
-
-.services-timeline {
-  position: relative; /* Necesario para posicionar la línea y los puntos dentro */
-  max-width: 1000px; /* Ancho máximo del contenedor de servicios */
-  margin: 0 auto; /* Centrado en la página */
-  padding: 60px 0; /* Espacio arriba y abajo del timeline */
-}
-
-/* La línea vertical central decorativa */
-.services-timeline::before {
-  content: ""; /* Elemento vacío para crear la forma visual */
-  position: absolute; /* Se posiciona respecto al contenedor padre */
-  left: 50%; /* Se ubica exactamente a la mitad horizontal */
-  top: 0; /* Comienza desde el inicio del contenedor */
-  bottom: 0; /* Se extiende hasta el final del contenedor */
-  width: 2px; /* Grosor fino de estilo editorial */
-  background: var(--border-gray); /* Color gris oscuro sutil */
-  transform: translateX(-50%); /* Ajuste fino para centrado perfecto */
-}
-
-/* Fila individual de cada servicio */
-.service-item {
-  display: flex; /* Activa flexbox para alinear texto e imagen */
-  align-items: center; /* Centra verticalmente el texto con la imagen */
-  justify-content: space-between; /* Empuja el texto a un lado y la imagen al otro */
-  margin-bottom: 120px; /* Espacio amplio entre servicios */
-  position: relative; /* Referencia para el punto sepia absoluto */
-}
-
-/* Clase para invertir el orden (Zig-Zag) en pantallas grandes */
-.service-item.item-reverse {
-  flex-direction: row-reverse; /* Cambia el orden: imagen izquierda, texto derecha */
-}
-
-/* Columnas internas (Texto y Multimedia) */
-.service-col {
-  width: 42%; /* Ocupa menos de la mitad para no tocar la línea central */
-}
-
-/* Alineación de texto: por defecto a la derecha (lado izquierdo de la línea) */
-.service-text {
-  text-align: right;
-}
-
-/* Alineación de texto para los items invertidos (lado derecho de la línea) */
-.item-reverse .service-text {
-  text-align: left;
-}
-
-/* --- EL PUNTO SEPIA (INDICADOR VISUAL) --- */
-
-.service-point {
-  position: absolute; /* Se coloca libremente sobre la línea */
-  left: 50%; /* Se ancla al centro horizontal */
-  width: 16px; /* Diámetro del punto */
-  height: 16px; /* Altura del punto */
-  background-color: var(--border-orange-circle); /* Color sepia corporativo */
-  border-radius: 50%; /* Hace que el cuadrado sea un círculo perfecto */
-  transform: translateX(-50%); /* Centrado exacto sobre la línea vertical */
-  z-index: 5; /* Se asegura de estar por encima de la línea */
-  /* border: 4px solid var(--border-orange-circle); Crea un "hueco" visual alrededor del punto */
-}
-
-/* --- CARRUSEL Y BORDES REDONDEADOS --- */
-
-.service-media .carousel {
-  border-radius: 2px; /* Redondeado de esquinas del contenedor */
-  overflow: hidden; /* Corta las imágenes que se salen al deslizarse */
-  position: relative; /* Base para los botones de navegación */
-}
-
-.service-media .carousel-track img {
-  height: 300px; /* Altura fija para mantener consistencia visual */
-  width: 100%; /* Ocupa todo el ancho disponible de su columna */
-  object-fit: cover; /* Ajusta la imagen sin deformarla (recorta excesos) */
-  border-radius: 2px; /* Doble refuerzo de redondeado en la imagen */
-  filter: grayscale(100%); /* Efecto inicial en blanco y negro */
-  transition: all 0.5s ease; /* Transición suave para color y posibles escalas */
-}
-
-/* Interacción: recupera el color al pasar el cursor sobre la fila */
-.service-item:hover .carousel-track img {
-  filter: grayscale(0%);
-}
-
-/* CONTENEDOR GENERAL */
-.carousel {
-  position: relative;
-  width: 100%;
-  margin-top: 20px;
-}
-
-/* PISTA QUE SE DESLIZA */
-.carousel-track {
-  display: flex;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-
-  /* 👇 AQUÍ ESTÁ LA MAGIA */
-  scroll-snap-type: x mandatory;
-
-  scrollbar-width: none;
-}
-
-.carousel-track img {
-  min-width: 100%;
-  height: 180px;
-  object-fit: cover;
-
-  /* 👇 fuerza el “enganche” */
-  scroll-snap-align: start;
-}
-
-.carousel-track::-webkit-scrollbar {
-  display: none;
-}
-
-/* BOTONES DE NAVEGACIÓN */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border: none;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  cursor: pointer;
-  font-size: 1.4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
-
-  /* 👇 magia */
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-/* Aparecen SOLO cuando el cursor está sobre el carrusel */
-.carousel:hover .carousel-btn {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-/* Posición de botones */
-.carousel-btn.prev {
-  left: 10px;
-}
-
-.carousel-btn.next {
-  right: 10px;
-}
-
-/* Hover sutil */
-.carousel-btn:hover {
-  background: rgba(0, 0, 0, 0.75);
-}
-
-/* INDICADORES DEL CARRUSEL */
-.carousel-indicators {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 14px;
-}
-
-/* Guión base */
-.indicator {
-  width: 28px;
-  height: 2px;
-  background: var(--border-gray);
-  transition: background 0.3s ease;
-}
-
-/* Guión activo */
-.indicator.active {
-  background: var(--border-orange);
-}
-
-/* ============================= */
-/* PROYECTOS — índice editorial  */
-/* Grid principal que contiene las tarjetas de proyectos */
-.projects-grid {
-  display: flex; /* Alineación en fila */
-  flex-direction: row; /* Asegura la dirección horizontal */
-  flex-wrap: nowrap; /* Prohíbe que las tarjetas bajen a otra fila */
-
-  gap: 20px; /* Reducimos un poco el gap para ganar espacio */
-  margin-top: 60px;
-  width: 100%; /* Ocupa el ancho total del contenedor */
-  justify-content: center; /* Centra las tarjetas si son pocas */
-}
-
-.project-parallax-container {
-  background-color: var(--dark-gray);
-}
-
-@media (max-width: 768px){
-  .project-parallax-container {
-  background-color: var(--mid-gray);
-}
-}
-
-.project-card {
-  /* flex: 1 1 0; 
-     Esto hace que todas las tarjetas midan exactamente lo mismo 
-     y se repartan equitativamente el espacio disponible.
-  */
-  flex: 1 1 0;
-  min-width: 0; /* Permite que la tarjeta se encoja por debajo de su contenido */
-
-  position: relative;
-  height: 400px; /* Altura fija para mantener el estilo vertical */
-  border-radius: 8px; /* Coherencia con el diseño redondeado */
-  overflow: hidden; /* Mantiene las imágenes dentro de los bordes */
-  transition:
-    flex 0.5s ease,
-    transform 0.3s ease; /* Transición suave por si quieres efectos */
-}
-
-.project-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* La imagen llena la tarjeta sin deformarse */
-  filter: grayscale(100%) contrast(1.1);
-  /* Tratamiento sobrio inicial */
-  transition:
-    transform 0.6s ease,
-    filter 0.6s ease;
-  /* Transiciones suaves al hover */
-}
-
-/* Capa superpuesta con texto */
-.project-overlay {
-  position: absolute;
-  /* Se posiciona encima de la imagen */
-  inset: 0;
-  /* Ocupa todo el contenedor */
-  display: flex;
-  /* Layout flexible */
-  flex-direction: column;
-  /* Elementos en columna */
-  justify-content: flex-end;
-  /* Texto alineado abajo como portada */
-  padding: 30px;
-  /* Espaciado interior */
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-  /* Degradado para legibilidad del texto */
-}
-
-/* Texto pequeño que indica tipo de contenido */
-.project-category {
-  font-size: 0.7rem;
-  /* Tamaño editorial discreto */
-  text-transform: uppercase;
-  /* Mayúsculas tipo archivo */
-  letter-spacing: 2px;
-  /* Aire entre letras */
-  color: var(--light-gray);
-  /* Gris secundario */
-  margin-bottom: 6px;
-  /* Separación del título */
-}
-
-/* Título principal del proyecto */
-.project-overlay h4 {
-  font-size: 1.4rem;
-  /* Título claro pero no dominante */
-  font-weight: 400;
-  /* Peso elegante */
-  color: var(--off-white);
-  /* Alto contraste sobre la imagen */
-}
-
-/* Interacción al pasar el cursor */
-.project-card:hover img {
-  transform: scale(1.05);
-  /* Zoom muy sutil */
-  filter: grayscale(0%) contrast(1.05);
-  /* Devuelve el color gradualmente */
-}
-
-/* --- Inicio - INDICADOR CLICKEABLE (MÓVIL) --- */
-/* Por defecto oculto en escritorio */
-.mobile-click-indicator {
-  display: none;
-}
-
-/* --- ANIMACIONES DE REVELACIÓN (SCROLL REVEAL) --- */
-
-/* Estado inicial: Invisible y 50px más abajo */
-.reveal {
-  opacity: 0;
-  transform: translateY(50px);
-  transition: all 0.8s ease-out; /* Controla la suavidad y duración */
-  visibility: hidden;
-}
-
-/* Estado activo: Visible y en su posición original */
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-  visibility: visible;
-}
-
-/* Retrasos opcionales para elementos en cascada (opcional) */
-.delay-1 {
-  transition-delay: 0.2s;
-}
-.delay-2 {
-  transition-delay: 0.4s;
-}
-
-@media (max-width: 768px) {
-  /* Hacemos visible el indicador en móvil */
-  .mobile-click-indicator {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-top: 15px;
-    color: var(--border-orange-arrow); /* Color sepia para llamar la atención */
-    font-size: 0.85rem;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    opacity: 0.9;
-  }
-
-  /* Animación sutil de "pulso" para indicar que es interactivo */
-  .mobile-click-indicator svg {
-    animation: bounceRight 1.5s infinite;
-  }
-
-  /* Forzamos que la tarjeta en móvil tenga un brillo un poco mayor 
-     para que se entienda que es un elemento activo */
-  .project-card img {
-    filter: grayscale(0%) brightness(0.7) !important;
-  }
-}
-
-/* Animación de la flecha */
-@keyframes bounceRight {
-  0%,
-  100% {
-    transform: translateX(0);
-  }
-  50% {
-    transform: translateX(5px);
-  }
-}
-
-/* --- AJUSTE DE LA FILA (Recordatorio del paso anterior) --- */
-.projects-grid {
-  display: flex;
-  flex-direction: row; /* Fila en escritorio */
-  flex-wrap: nowrap;
-  gap: 20px;
-}
-
-@media (max-width: 768px) {
-  .projects-grid {
-    flex-direction: column; /* Columna en móvil */
-    gap: 25px;
-  }
-
-  .project-card {
-    height: 300px; /* Altura cómoda para click en móvil */
-    width: 100%;
-  }
-}
-/* --- Fin - INDICADOR CLICKEABLE (MÓVIL) --- */
-
-/* FIN - PROYECTOS — índice editorial  */
-/* ============================= */
-
-/* FOOTER — archivo */
-.footer {
-  text-align: center;
-  padding: 40px 20px;
-  font-size: 0.7rem;
-  background: var(--dark-gray);
-  color: var(--light-gray);
-  letter-spacing: 1px;
-  text-transform: uppercase;
-}
-
-/* --- PERFIL: CONFIGURACIÓN DE IMAGEN DE FONDO --- */
-.contacto-bg-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-
-  /* Imagen por defecto (Escritorio) */
-  background-image: url("assets/contacto-background.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  filter: grayscale(
-    100%
-  ); /* Escala de grises y oscurecimiento (20% de brillo) */
-  opacity: 0.7; /* Mantiene tu estilo visual */
-}
-
-/* --- CAMBIO DE IMAGEN PARA MÓVIL --- */
-@media (max-width: 768px) {
-  .contacto-bg-overlay {
-    /* Aquí colocas la ruta de la nueva imagen optimizada para móvil */
-    background-image: url("assets/contacto-background.jpg");
-
-    /* Ajuste opcional para móviles: puedes centrarla diferente si es necesario */
-    background-position: top center;
-    opacity: 0.5; /*Puedes ajustar la opacidad solo para móvil si prefieres*/
-  }
-}
-
-/* --- AJUSTE DEL CONTENIDO SOBRE EL FONDO --- */
-.contacto-parallax-container .container {
-  position: relative; /* Eleva el contenido sobre la imagen de fondo */
-  z-index: 1; /* Asegura que el texto y carruseles estén arriba */
-}
-
-/* --- SECCIÓN CONTACTO --- */
-.contacto-parallax-container {
-  position: relative;
-  background-color: var(--black);
-  padding: 120px 0;
-  overflow: hidden;
-}
-
-/* Distribución en dos columnas */
-.contacto-layout {
-  display: flex;
-  justify-content: space-between; /* Empuja info a la izq y redes a la der */
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.contacto-info {
-  text-align: left;
-}
-
-.contacto-link {
-  font-size: 1.8rem;
-  color: var(--off-white);
-  text-decoration: none;
-  transition: color 0.3s ease;
   display: block;
-  margin: 10px 0;
 }
 
-.contacto-link:hover {
-  color: var(--border-orange);
-}
-
-/* Contenedor de Redes (Derecha) */
-.social-links-container {
-  text-align: right;
-}
-
-.social-grid {
-  display: flex;
-  gap: 15px;
-  justify-content: flex-end; /* Alinea botones a la derecha */
-  margin-top: 20px;
-}
-
-.social-btn {
-  width: 50px;
-  height: 50px;
-  border: 1px solid var(--border-gray);
-  border-radius: 50%;
-  display: flex;
+/* --- GRID PRINCIPAL --- */
+.column-container {
+  display: grid;
+  grid-template-columns: 45% 55%;
+  gap: var(--profile-gap);
   align-items: center;
-  justify-content: center;
-  color: var(--off-white);
-  transition: all 0.4s ease;
-  background: rgba(0, 0, 0, 0.83);
 }
 
-.social-btn:hover {
-  border-color: var(--border-orange);
-  color: var(--border-orange);
-  transform: translateY(-5px);
+/* --- IMAGEN CON ESTILO EDITORIAL --- */
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Fondo con textura */
-.contacto-bg-overlay img {
-  position: absolute;
-  top: 0;
-  left: 0;
+.categoria-imagen img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.15;
-  filter: grayscale(100%);
-  z-index: 0;
+  display: block;
+  filter: grayscale(100%) contrast(1.1);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* RESPONSIVE: En móvil todo al centro y uno debajo de otro */
-@media (max-width: 768px) {
-  .contacto-layout {
-    flex-direction: column;
-    text-align: center;
-    gap: 50px;
-  }
-
-  .contacto-info,
-  .social-links-container {
-    text-align: center;
-  }
-
-  .social-grid {
-    justify-content: center;
-  }
-
-  .contacto-link {
-    font-size: 1.4rem;
-  }
+.categoria-imagen:hover img {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.05);
 }
 
-/* RESPONSIVE */
-@media (max-width: 768px) {
+/* --- TEXTO DE BIO --- */
+.profile-name {
+  font-size: 2.2rem;
+  margin: 15px 0;
+  font-family: "Playfair Display", serif; /* Opcional: fuente con serifa */
+  color: var(--profile-white);
+}
+
+.year-label {
+  font-size: 0.8rem;
+  opacity: 0.6;
+  text-transform: uppercase;
+}
+
+.main-bio {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #ccc;
+}
+
+/* --- TEXTO EXTENDIDO (COLUMNAS TIPO REVISTA) --- */
+.profile-text-extended {
+  margin-top: 80px;
+  column-count: 2;
+  column-gap: 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 50px;
+}
+
+.profile-text-extended p {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: #bbb;
+  margin-bottom: 25px;
+  text-wrap: pretty;
+}
+
+/* --- RESPONSIVE / MÓVIL --- */
+@media (max-width: 992px) {
   .column-container {
     grid-template-columns: 1fr;
-    gap: 40px;
-  }
-
-  .hero h1 {
-    font-size: 2.5rem;
-  }
-
-  .carousel-track img {
-    height: 200px;
-  }
-
-  .projects-grid {
-    flex-direction: column; /* Cambia a disposición vertical */
-    flex-wrap: wrap; /* Permite el flujo normal */
-    gap: 30px; /* Más espacio entre tarjetas verticales */
-  }
-
-  .project-card {
-    flex: none; /* Desactivamos el comportamiento de repartir ancho */
-    width: 100%; /* Ocupa todo el ancho de la pantalla */
-    height: 350px; /* Altura ajustada para móvil */
-  }
-
-  .project-card img {
-    filter: grayscale(
-      0%
-    ); /* En móvil mejor mostrar color directo (o usar el truco de scroll) */
+    text-align: center;
   }
 
   .profile-text-extended {
-    margin-top: 10px;
+    column-count: 1;
   }
 
-  /* Inicio - Servicios */
-  /* Mueve la línea vertical al lado izquierdo */
-  .services-timeline::before {
+  .profile-header {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .profile-bg-overlay {
+    background-attachment: scroll; /* Desactivar parallax en móvil */
+    display: none; /* Opcional: limpiar fondo en móvil */
+  }
+
+  #perfil {
+    background: #121212;
+  }
+}
+/* END - BIO *************************************************/
+
+/* SECCIÓN TIMELINE ******************************************/
+.timeline-section {
+  background-color: #121212;
+  padding: 120px 0;
+  color: var(--off-white);
+}
+
+.timeline-container {
+  max-width: 900px;
+  margin: 60px auto 0;
+  position: relative;
+}
+
+/* Línea central vertical sutil */
+.timeline-container::before {
+  content: "";
+  position: absolute;
+  left: 120px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.timeline-group {
+  display: flex;
+  margin-bottom: 80px;
+  position: relative;
+}
+
+/* El Año */
+.timeline-year {
+  width: 140px; /* 1. Aumentamos de 120px a 140px para dar más aire */
+  white-space: nowrap; /* 2. ESTA ES LA CLAVE: Prohíbe que el texto salte de línea */
+  flex-shrink: 0; /* 3. Evita que el contenedor se encoja si el texto es largo */
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--border-orange);
+  padding-right: 40px;
+  text-align: right;
+  flex-shrink: 0;
+  padding-top: 5px;
+}
+
+.timeline-content {
+  padding-left: 60px;
+  flex-grow: 1;
+}
+
+/* Cada Item del Timeline */
+.timeline-item {
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* El punto en la línea */
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -64px; /* Ajuste preciso sobre la línea vertical */
+  top: 10px;
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border: 1px solid var(--border-orange);
+  border-radius: 50%;
+}
+
+.item-date {
+  display: block;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #888;
+  margin-bottom: 8px;
+}
+
+.item-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: var(--off-white);
+}
+
+.item-detail {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #aaa;
+}
+
+.item-detail strong {
+  color: var(--off-white);
+}
+
+/* Estilos especiales para destacar logros clave */
+.timeline-item.highlight {
+  background: rgba(230, 126, 34, 0.05);
+  padding: 20px;
+  border-radius: 4px;
+  border-left: 2px solid var(--border-orange);
+}
+
+.timeline-item.highlight-alt {
+  border-left: 2px solid #555;
+  padding-left: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .timeline-container::before {
     left: 20px;
-    transform: none;
   }
-
-  /* Cambia a disposición vertical: Texto arriba, Imagen abajo */
-  .service-item,
-  .service-item.item-reverse {
+  .timeline-group {
     flex-direction: column;
-    align-items: flex-start; /* Alinea todo al borde izquierdo */
-    margin-bottom: 60px; /* Reduce espacio entre servicios en móvil */
   }
-
-  /* Ajusta las columnas al ancho total */
-  .service-col {
+  .timeline-year {
+    text-align: left;
     width: 100%;
-    padding-left: 45px; /* Espacio para que el texto no pise la línea */
-    text-align: left !important; /* Fuerza alineación izquierda para todos */
+    margin-bottom: 20px;
+    padding-left: 45px;
+  }
+  .timeline-content {
+    padding-left: 45px;
+  }
+  .timeline-item::before {
+    left: -33px;
+  }
+}
+/* END - SECCIÓN TIMELINE ************************************/
+
+/* SECCIÓN ESPECIALIDADES ************************************/
+.specialties-section {
+  padding: 120px 0;
+  background-color: #1a1a1a;
+  overflow: hidden;
+}
+
+.specialties-list {
+  max-width: 1100px;
+  margin: 80px auto 0;
+  display: flex;
+  flex-direction: column;
+  gap: 140px; /* Espacio amplio para dejar respirar cada especialidad */
+}
+
+/* GRID PRINCIPAL */
+.specialty-item {
+  display: grid;
+  grid-template-columns: 45% 50%; /* Ligero ajuste para mejorar el aire entre columnas */
+  gap: 5%;
+  align-items: center;
+}
+
+/* RITMO ASIMÉTRICO: Alternancia de elementos */
+.specialty-item:nth-child(even) .slider-wrapper {
+  order: 2;
+}
+
+.specialty-item:nth-child(even) .card-text {
+  order: 1;
+  text-align: right;
+}
+
+/* --- ESTILOS DEL SLIDER (EL CORAZÓN VISUAL) --- */
+.slider-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+  background: #000; /* Fondo negro para evitar destellos blancos en carga */
+}
+
+.image-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+}
+
+.image-slider::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge */
+}
+
+.image-slider img {
+  width: 100%;
+  flex-shrink: 0;
+  object-fit: cover;
+  scroll-snap-align: start;
+  aspect-ratio: 4 / 5; /* Formato vertical de revista */
+  filter: grayscale(100%) contrast(1.1);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* INTERACCIÓN HOVER: Color y Zoom */
+.specialty-item:hover .image-slider img {
+  filter: grayscale(0%) contrast(1);
+  transform: scale(1.05);
+}
+
+/* Indicador de interacción */
+.slider-hint {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #fff;
+  text-transform: uppercase;
+  z-index: 10;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 2px;
+  backdrop-filter: blur(4px);
+}
+
+/* --- BLOQUE DE TEXTO --- */
+.card-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.card-number {
+  font-size: 0.85rem;
+  color: var(--border-orange);
+  font-weight: 700;
+  letter-spacing: 5px;
+  opacity: 0.8;
+}
+
+.card-text h3 {
+  font-size: clamp(1.8rem, 4vw, 2.8rem); /* Tamaño fluido */
+  color: var(--off-white);
+  font-weight: 600;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.card-tags {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--border-orange); /* Cambiado a naranja para resaltar categorías */
+  font-weight: 600;
+}
+
+.card-desc {
+  font-size: 1.1rem;
+  line-height: 1.9;
+  color: #999;
+  font-weight: 300;
+  max-width: 500px;
+}
+
+/* Ajuste de alineación para el texto en modo espejo */
+.specialty-item:nth-child(even) .card-desc {
+  margin-left: auto; /* Empuja el texto a la derecha si está alineado a la derecha */
+}
+
+.card-desc strong {
+  color: var(--off-white);
+  font-weight: 500;
+}
+
+/* --- RESPONSIVE OPTIMIZADO --- */
+
+@media (max-width: 1024px) {
+  .specialties-list {
+    gap: 100px;
+  }
+  .specialty-item {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .specialty-item {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
   }
 
-  /* Posiciona el punto frente al título del servicio */
-  .service-point {
-    left: 20px;
-    top: 10px; /* Altura alineada con la primera línea de texto */
-    transform: translateX(-50%);
+  .specialty-item:nth-child(even) .slider-wrapper {
+    order: 1;
+  }
+  .specialty-item:nth-child(even) .card-text {
+    order: 2;
+    text-align: center;
   }
 
-  /* Separación entre el bloque de texto y el carrusel inferior */
-  .service-media {
-    margin-top: 25px;
+  .specialty-item:nth-child(even) .card-desc {
+    margin-left: unset;
   }
 
-  /* Reduce un poco la altura de las imágenes en pantallas pequeñas */
-  .service-media .carousel-track img {
-    filter: grayscale(30%); /* En móvil, dejamos un poco de color por defecto */
-    height: 250px;
+  .card-desc {
+    max-width: 100%;
+    font-size: 1rem;
   }
 
-  .services-bg-overlay img {
-    opacity: 0.3; /* Bajamos un poco más la opacidad en móvil para evitar ruido visual */
+  .slider-wrapper {
+    max-width: 450px; /* Evita que la imagen sea gigante en móviles */
+    margin: 0 auto;
+  }
+}
+/* END - SECCIÓN ESPECIALIDADES ******************************/
+
+/* SECCIÓN SECCIÓN PROYECTOS *********************************/
+.project-parallax-container {
+  background-color: #121212;
+  padding: 140px 0;
+}
+
+/* Encabezado con línea de diseño */
+.dossier-header {
+  margin-bottom: 100px;
+  position: relative;
+}
+
+.header-line {
+  width: 60px;
+  height: 1px;
+  background: var(--border-orange);
+  margin-bottom: 20px;
+}
+
+/* Grid Asimétrico */
+.projects-grid {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.project-card {
+  position: relative;
+  flex: 1;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: flex 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Efecto de expansión: la tarjeta que tocas crece */
+.projects-grid:hover .project-card {
+  flex: 0.8; /* Las que no tocas se encogen */
+}
+
+.projects-grid .project-card:hover {
+  flex: 1.2; /* La activa crece */
+}
+
+/* Contenedor de Imagen con máscara */
+.image-box {
+  position: relative;
+  width: 100%;
+  height: 550px; /* Altura imponente */
+  overflow: hidden;
+  background: #000;
+}
+
+.image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(100%) brightness(0.7);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .image-box img {
+  filter: grayscale(0%) brightness(1);
+  transform: scale(1.05);
+}
+
+/* Numeración Flotante */
+.card-number {
+  font-family: "Playfair Display", serif;
+  font-size: 4rem;
+  color: rgba(255, 255, 255, 0.05);
+  position: absolute;
+  top: -40px;
+  left: -20px;
+  z-index: 1;
+  transition: color 0.5s ease;
+}
+
+.project-card:hover .card-number {
+  color: rgba(230, 126, 34, 0.2);
+}
+
+/* Info del Proyecto fuera de la imagen (Estilo Editorial) */
+.project-info {
+  padding-top: 30px;
+  z-index: 2;
+}
+
+.project-category {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--border-orange);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.project-info h4 {
+  font-size: 2rem;
+  color: #fff;
+  font-weight: 500;
+  margin: 0 0 20px 0;
+}
+
+/* Botón Explorar con línea animada */
+.view-project {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.5s ease;
+}
+
+.view-project span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 2px;
+}
+
+.view-project .line {
+  width: 0;
+  height: 1px;
+  background: #fff;
+  transition: width 0.5s ease;
+}
+
+.project-card:hover .view-project {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.project-card:hover .view-project .line {
+  width: 40px;
+}
+
+/* --- MÓVIL --- */
+@media (max-width: 768px) {
+  .projects-grid {
+    flex-direction: column;
+    gap: 80px;
   }
 
-  /* Fin - Servicios */
+  .image-box {
+    height: 400px;
+  }
+
+  .projects-grid:hover .project-card {
+    flex: 1;
+  }
+
+  .view-project {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .view-project .line {
+    width: 40px;
+  }
+}
+/* END - SECCIÓN PROYECTOS ***********************************/
+/* --- CIERRE DE PÁGINA: CONTACTO & FOOTER --- */
+
+.contacto-parallax-container {
+  background-color: #0d0d0d;
+  padding: 160px 0 0 0; /* Espacio superior amplio */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Fondo con efecto de profundidad */
+.contacto-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/contacto-background.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: 0.2;
+  filter: grayscale(100%) contrast(1.2);
+  z-index: 0;
+}
+
+.contacto-content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: 100px;
+}
+
+/* Layout Cinematográfico */
+.contacto-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.headline-big {
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  line-height: 0.9;
+  color: #fff;
+  font-weight: 600;
+  margin: 20px 0 40px;
+}
+
+.headline-big span {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.3); /* Texto con borde (estilo Pro) */
+}
+
+/* Email con línea animada */
+.email-link {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  color: var(--border-orange);
+  text-decoration: none;
+  position: relative;
+  display: inline-block;
+}
+
+.link-line {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.email-link:hover .link-line {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Redes Sociales Tipográficas */
+.social-grid-modern {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.social-item {
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.5;
+  transition:
+    opacity 0.3s,
+    transform 0.3s;
+}
+
+.social-item:hover {
+  opacity: 1;
+  transform: translateX(10px);
+  color: var(--border-orange);
+}
+
+/* --- FOOTER: EL CRÉDITO DEL PROGRAMADOR --- */
+
+.footer-pro {
+  background: #000;
+  padding: 60px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left p,
+.footer-right p {
+  font-size: 0.75rem;
+  color: #fff;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.footer-left span {
+  font-size: 0.65rem;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.dev-link {
+  color: var(--border-orange);
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 5px;
+  transition: letter-spacing 0.3s;
+}
+
+.dev-link:hover {
+  letter-spacing: 3px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) {
+  .contacto-layout {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 60px;
+  }
+
+  .footer-grid {
+    flex-direction: column;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .footer-right {
+    order: -1; /* En móvil, tu crédito sube un poco para visibilidad */
+  }
 }
